@@ -1,10 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import {
-  // FiChevronLeft,
-  // FiChevronRight,
-  FiPlus,
-  FiSearch,
-} from 'react-icons/fi';
+import { FiPlus, FiSearch } from 'react-icons/fi';
 
 import getAllOrders from '../../api/orders/get-all-orders';
 import { useUser } from '../../context/user';
