@@ -33,7 +33,9 @@ const Home: FC = () => {
     try {
       const { email, password } = getValues();
 
-      await loginWithEmailAndPassword(email, password).then((credential) =>
+      await loginWithEmailAndPassword(email, password, {
+        firestoreCollectionName: 'admin',
+      }).then((credential) =>
         updateUser(credential.user.uid, { lastLoginAt: Date.now() })
       );
 

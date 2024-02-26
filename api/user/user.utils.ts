@@ -1,1 +1,1 @@
-export const userCollectionName = 'client';
+export const userCollectionName = 'admin';
