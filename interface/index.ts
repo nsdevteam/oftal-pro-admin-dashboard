@@ -1,5 +1,8 @@
 import { ReactNode } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface IEmptyObject {}
+
 export interface MenuProps {
   id: number;
   url: string;
@@ -65,4 +68,9 @@ export interface TableProps {
   data: TRowData;
   columns: Record<string, string>;
   special?: Record<string, 'date'>;
+}
+
+export interface IUserPrices {
+  extra: Record<string, number>;
+  lens: Record<string, ReadonlyArray<number | null>>;
 }
