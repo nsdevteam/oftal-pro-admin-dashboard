@@ -1,11 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-
 import { ReactNode } from 'react';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IEmptyObject {}
-
-export type MaybeArray<T> = T | Array<T>;
 
 export interface MenuProps {
   id: number;
@@ -14,71 +7,17 @@ export interface MenuProps {
   icon: ReactNode;
 }
 
-export interface NotificationProps {
-  id: number;
-  title: string;
-  description: string;
-  createdAt: string;
-  currentDate: string;
+export interface OrderFormProps {
+  closeForm: () => void;
 }
 
-export interface AddressProps {
-  id: string;
-  province: string;
-  state: string;
-  city?: string;
-  street?: string;
-  apt?: string;
-  house?: string;
-  building?: string;
+interface IEye {
+  axis?: string;
+  active: boolean;
+  cylinder?: string;
+  addition?: string;
+  spherical?: string;
 }
-
-export interface PaymentProps {
-  entity?: string;
-  amount?: number;
-  reference?: string;
-  phoneNumber?: number;
-}
-
-export interface RefractionProps {
-  id: number;
-  value: string;
-}
-
-export interface IndicesProps {
-  id: number;
-  size: string;
-}
-
-export interface IOrder {
-  leftSpherical?: number;
-  leftCylinder?: number;
-  leftAxis?: number;
-  rightSpherical?: number;
-  rightCylinder?: number;
-  rightAxis?: number;
-  refraction?: string;
-  geometry?: string;
-  indiceOfRefraction?: number;
-  color?: string;
-  treatment?: string;
-  diameter?: number;
-  alway?: number;
-  coloring?: number;
-  prism?: number;
-  precal?: number;
-  patientName: string;
-  jobReference: string;
-  observation: string;
-  file?: FileList | unknown;
-  amount?: number;
-  address?: AddressProps | undefined;
-  payment?: PaymentProps | undefined;
-}
-
-export type TRowData = ReadonlyArray<
-  Record<string, string | number | undefined>
->;
 
 export interface IClient {
   email: string;
@@ -89,15 +28,41 @@ export interface IClient {
   clientId: `CL${number}`;
 }
 
-export interface IUserPrices {
-  extra: Record<string, number>;
-  lens: Record<string, ReadonlyArray<number | null>>;
+export interface IOrder {
+  ref: string;
+  leftEye?: IEye;
+  rightEye?: IEye;
+  prisma: boolean;
+  precal?: FileList;
+  recipe?: FileList;
+  diameter: number;
+  coloring: boolean;
+  observation: string;
+  minimumHeight: string;
+  refractiveIndex: string | undefined;
+  treatment: 'HMC' | 'SHMC' | 'UC' | 'HC';
+  color: 'white' | 'photochromatic' | 'transitions' | 'polarised';
+  type:
+    | 'single-focal'
+    | 'boost'
+    | 'dynamic'
+    | 'extend'
+    | 'office'
+    | 'invisible'
+    | 'bifocal';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IEmptyObject {}
+export interface EyeFieldsProps {
+  label: string;
+  name: 'rightEye' | 'leftEye';
+}
+
+export type TRowData = ReadonlyArray<
+  Record<string, string | number | undefined>
+>;
 
 export interface TableProps {
   data: TRowData;
   columns: Record<string, string>;
+  special?: Record<string, 'date'>;
 }

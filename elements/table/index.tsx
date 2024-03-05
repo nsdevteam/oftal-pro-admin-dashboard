@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
 
 import { TableProps } from '../../interface';
-import {
-  COLOR_LEGEND,
-  TYPE_LEGEND,
-} from '../../views/orders/order-form/order-form.data';
+import { COLOR_LEGEND, TYPE_LEGEND } from '../../views/orders/orders.data';
 import Box from '../box';
 import Typography from '../typography';
 
@@ -13,7 +10,7 @@ const legends = {
   color: COLOR_LEGEND,
 };
 
-const Table: FC<TableProps> = ({ data, columns }) => {
+const Table: FC<TableProps> = ({ data, columns, special }) => {
   const columnKeys = Object.keys(columns);
   const columnValues = Object.values(columns);
 
@@ -55,8 +52,10 @@ const Table: FC<TableProps> = ({ data, columns }) => {
                     borderBottom="1px solid #E4E4E7"
                     key={cellIndex}
                   >
-                    {(legends as any)[columnKey]?.[item[columnKey] as any] ??
-                      item[columnKey]}
+                    {special?.[columnKey] === 'date'
+                      ? new Date(item[columnKey] as number).toLocaleDateString()
+                      : (legends as any)[columnKey]?.[item[columnKey] as any] ??
+                        item[columnKey]}
                   </Box>
                 ))}
               </Box>

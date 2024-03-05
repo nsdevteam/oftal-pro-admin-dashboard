@@ -1,45 +1,20 @@
-import { FC, useEffect, useMemo, useState } from 'react';
-import { CSVLink } from 'react-csv';
-import { FiSearch } from 'react-icons/fi';
-import { RiFileExcel2Line } from 'react-icons/ri';
+import { FC, useEffect, useState } from 'react';
+import { FiPlus, FiSearch } from 'react-icons/fi';
 
-import getAllOrders from '../../api/orders/get-all-orders';
+import getAllClients from '../../api/clients/get-all-clients';
 import { Box, Button, Input, Typography } from '../../elements';
-import { IOrder } from '../../interface';
-import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
-import OrderTable from './orders-table';
+import { IClient } from '../../interface';
+import OrderTable from './clients-table';
 
-const Orders: FC = () => {
+const Clients: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [orders, setOrders] = useState<ReadonlyArray<IOrder>>([]);
+  const [clients, setClients] = useState<ReadonlyArray<IClient>>([]);
 
   useEffect(() => {
-    getAllOrders()
-      .then(setOrders)
+    getAllClients()
+      .then(setClients)
       .finally(() => setLoading(false));
   }, []);
-
-  const csvData = useMemo(
-    () => [
-      [
-        'Ref/Nome de pacitente',
-        'Tipo',
-        'Índice de refração',
-        'Cor',
-        'Tratamento',
-        'Diâmetro',
-      ],
-      ...orders.map((order) => [
-        order.ref,
-        TYPE_LEGEND[order.type],
-        order.refractiveIndex,
-        COLOR_LEGEND[order.color],
-        order.treatment,
-        order.diameter,
-      ]),
-    ],
-    [orders]
-  );
 
   return (
     <Box
@@ -84,19 +59,17 @@ const Orders: FC = () => {
               />
             </Box>
           </Box>
-          <CSVLink filename="orders.csv" data={csvData}>
-            <Button mt="L" disabled={loading}>
-              <Typography as="span">Exportar</Typography>
-              <Typography as="span" ml="M">
-                <RiFileExcel2Line size={18} color="#FFF" />
-              </Typography>
-            </Button>
-          </CSVLink>
+          <Button mt="L" disabled={loading}>
+            <Typography as="span">Adicionar Cliente</Typography>
+            <Typography as="span" ml="M">
+              <FiPlus size={18} color="#FFF" />
+            </Typography>
+          </Button>
         </Box>
-        <OrderTable data={orders} />
+        <OrderTable data={clients} />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
-        <Typography as="h4">Total de resultados: {orders.length}</Typography>
+        <Typography as="h4">Total de resultados: {clients.length}</Typography>
         {/* {!!orders.length && (
           <Box display="flex" justifyContent="center" alignItems="center">
             <Button>
@@ -114,4 +87,4 @@ const Orders: FC = () => {
   );
 };
 
-export default Orders;
+export default Clients;
