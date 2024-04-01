@@ -22,6 +22,12 @@ interface IEye {
   spherical?: string;
 }
 
+export interface IAdmin {
+  email: string;
+  fullName: string;
+  lastLoginAt?: number;
+}
+
 export interface IClient {
   email: string;
   fullName: string;

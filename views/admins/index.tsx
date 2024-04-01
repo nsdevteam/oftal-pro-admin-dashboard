@@ -1,20 +1,20 @@
 import { FC, useEffect, useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 
-import getAllClients from '../../api/clients/get-all-clients';
+import { getAllAdmins } from '../../api/admins';
 import { Box, Button, Input, Typography } from '../../elements';
-import { IClient } from '../../interface';
-import ClientForm from './client-form';
-import OrderTable from './clients-table';
+import { IAdmin } from '../../interface';
+import AdminForm from './admin-form';
+import AdminTable from './admin-table';
 
-const Clients: FC = () => {
+const Admins: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [clients, setClients] = useState<ReadonlyArray<IClient>>([]);
+  const [admins, setAdmins] = useState<ReadonlyArray<IAdmin>>([]);
 
   useEffect(() => {
-    getAllClients()
-      .then(setClients)
+    getAllAdmins()
+      .then(setAdmins)
       .finally(() => setLoading(false));
   }, []);
 
@@ -57,37 +57,25 @@ const Clients: FC = () => {
                 ml={['0', 'S']}
                 borderRadius="M"
                 backgroundColor="transparent"
-                placeholder="Procurar por pedidos..."
+                placeholder="Procurar por administrador..."
               />
             </Box>
           </Box>
-          <Button mt="L" disabled={loading}>
-            <Typography as="span">Adicionar Cliente</Typography>
+          <Button mt="L" disabled={loading} onClick={() => setOpen(true)}>
+            <Typography as="span">Adicionar Administrador</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />
             </Typography>
           </Button>
         </Box>
-        <OrderTable data={clients} />
+        <AdminTable data={admins} />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
-        <Typography as="h4">Total de resultados: {clients.length}</Typography>
-        {/* {!!orders.length && (
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Button>
-              <FiChevronLeft size={16} color="#27272A" />
-              <Typography>Anterior</Typography>
-            </Button>
-            <Button>
-              <Typography>Seguinte</Typography>
-              <FiChevronRight size={16} color="#27272A" />
-            </Button>
-          </Box>
-        )} */}
+        <Typography as="h4">Total de resultados: {admins.length}</Typography>
       </Box>
-      {isOpen && <ClientForm closeForm={() => setOpen(false)} />}
+      {isOpen && <AdminForm closeForm={() => setOpen(false)} />}
     </Box>
   );
 };
 
-export default Clients;
+export default Admins;

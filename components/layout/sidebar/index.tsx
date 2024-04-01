@@ -46,36 +46,20 @@ const Sidebar: FC<SidebarProps> = ({ isOpenMenu }) => {
     >
       <Box as="ul" width="100%">
         {menuLink.map(({ id, url, title, icon }) => (
-          <Box
-            as="div"
-            display="flex"
-            flexDirection="column"
-            key={id}
-            p="0.5rem"
-          >
-            <Box as="ul">
+          <Link key={id} href={url}>
+            <Box p="1rem" as="div" gap="0.5rem" color="white" display="flex">
+              {icon}
               <Typography
                 as="li"
                 width="100%"
                 display="flex"
-                justifyContent="space-between"
                 alignItems="center"
+                justifyContent="space-between"
               >
-                <Link
-                  href={url}
-                  style={{
-                    color: '#FFF',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  {icon}
-                  {title}
-                </Link>
+                {title}
               </Typography>
             </Box>
-          </Box>
+          </Link>
         ))}
       </Box>
       <Box

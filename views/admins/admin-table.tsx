@@ -1,18 +1,17 @@
 import { FC } from 'react';
 
 import { Box, Table, Typography } from '../../elements';
-import { IClient, TRowData } from '../../interface';
+import { IAdmin, TRowData } from '../../interface';
 
 const HEADINGS: Record<string, string> = {
-  clientId: 'ID',
   fullName: 'Nome',
   email: 'Email',
   lastLoginAt: 'Último login',
 };
 
-const ClientsTable: FC<{ data: ReadonlyArray<IClient> }> = ({ data }) => (
+const AdminTable: FC<{ data: ReadonlyArray<IAdmin> }> = ({ data }) => (
   <Box width="100%">
-    <Typography as="h2">Listagem de Clientes</Typography>
+    <Typography as="h2">Listagem de administrador</Typography>
     <Table
       columns={HEADINGS}
       special={{ lastLoginAt: 'date' }}
@@ -21,4 +20,4 @@ const ClientsTable: FC<{ data: ReadonlyArray<IClient> }> = ({ data }) => (
   </Box>
 );
 
-export default ClientsTable;
+export default AdminTable;

@@ -1,3 +1,4 @@
+export { default as AdminSVG } from './admin';
 export { default as ArrowLeftSVG } from './arrow-right';
 export { default as ArrowRightSVG } from './arrow-right';
 export { default as ChevronRightSVG } from './chevron-right';
