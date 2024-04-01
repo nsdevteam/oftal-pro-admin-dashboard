@@ -61,7 +61,7 @@ const Clients: FC = () => {
               />
             </Box>
           </Box>
-          <Button mt="L" disabled={loading}>
+          <Button mt="L" disabled={loading} onClick={() => setOpen(true)}>
             <Typography as="span">Adicionar Cliente</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />

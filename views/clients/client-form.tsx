@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
+import { clientsCollectionName } from '../../api/clients/clients.utils';
 import { Box, Button, Input, Typography } from '../../elements';
 import { ClientFormProps, IClientForm } from './clients.types';
 
@@ -14,22 +15,22 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm }) => {
     },
   });
 
-  const addNewAdmin = async () => {
-    const { email, password, fullName } = form.getValues();
+  const addNewClient = async () => {
+    const { email, password, fullName, clientId } = form.getValues();
 
     await createUser(email, password, {
       hasInstance: true,
-      userInfo: { fullName },
-      userCollectionName: 'admin',
+      userInfo: { fullName, clientId: `CL${clientId}` },
+      userCollectionName: clientsCollectionName,
     });
     closeForm();
   };
 
-  const handleAddNewAdmin = () =>
-    toast.promise(addNewAdmin(), {
-      loading: 'Adicionando administrador...',
-      success: 'Administrador adicionado com sucesso',
-      error: 'Erro ad adicionar administrador',
+  const handleAddNewClient = () =>
+    toast.promise(addNewClient(), {
+      loading: 'Adicionando cliente...',
+      success: 'Cliente adicionado com sucesso',
+      error: 'Erro ad adicionar cliente',
     });
 
   return (
@@ -79,50 +80,50 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm }) => {
           <Input
             borderRadius="0.8rem"
             border="1px solid #CDCDCD"
-            placeholder="Nome do administrador"
-            {...form.register('fullName')}
+            placeholder="001"
+            {...form.register('clientId')}
           />
         </Box>
         <Typography>Nome de Cliente</Typography>
         <Input
           borderRadius="0.8rem"
           border="1px solid #CDCDCD"
-          placeholder="Nome do administrador"
+          placeholder="Centro Óptico"
           {...form.register('fullName')}
         />
+        <Box display="flex" flexDirection="column" gap="1rem">
+          <Typography>Email</Typography>
+          <Input
+            borderRadius="0.8rem"
+            border="1px solid #CDCDCD"
+            {...form.register('email')}
+            placeholder="centro@optico.com"
+          />
+        </Box>
+        <Box display="flex" flexDirection="column" gap="1rem">
+          <Typography>Senha</Typography>
+          <Input
+            type="password"
+            placeholder="Senha"
+            borderRadius="0.8rem"
+            border="1px solid #CDCDCD"
+            {...form.register('password')}
+          />
+        </Box>
+        <Box display="flex" flexDirection="column" gap="1rem">
+          <Typography>Confirmar senha</Typography>
+          <Input
+            type="password"
+            placeholder="Confirmar senha"
+            borderRadius="0.8rem"
+            border="1px solid #CDCDCD"
+            {...form.register('confirmPassword')}
+          />
+        </Box>
+        <Button mt="1rem" onClick={handleAddNewClient}>
+          Adicionar Cliente
+        </Button>
       </Box>
-      <Box display="flex" flexDirection="column" gap="1rem">
-        <Typography>Email</Typography>
-        <Input
-          placeholder="Email"
-          borderRadius="0.8rem"
-          border="1px solid #CDCDCD"
-          {...form.register('email')}
-        />
-      </Box>
-      <Box display="flex" flexDirection="column" gap="1rem">
-        <Typography>Senha</Typography>
-        <Input
-          type="password"
-          placeholder="Senha"
-          borderRadius="0.8rem"
-          border="1px solid #CDCDCD"
-          {...form.register('password')}
-        />
-      </Box>
-      <Box display="flex" flexDirection="column" gap="1rem">
-        <Typography>Confirmar senha</Typography>
-        <Input
-          type="password"
-          placeholder="Confirmar senha"
-          borderRadius="0.8rem"
-          border="1px solid #CDCDCD"
-          {...form.register('confirmPassword')}
-        />
-      </Box>
-      <Button mt="1rem" onClick={handleAddNewAdmin}>
-        Adicionar Administrador
-      </Button>
     </Box>
   );
 };
