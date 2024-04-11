@@ -33,7 +33,7 @@
     "@emotion/styled": "^11.10.5",
     "@styled-system/css": "^5.1.5",
     "@stylin.js/react": "^1.0.5-alpha.0",
-    "burnbase": "^0.1.6-alpha.0",
+    "burnbase": "^0.2.0-alpha.3",
     "commitlint": "^17.7.1",
     "next": "^13.0.2",
     "ramda": "^0.28.0",

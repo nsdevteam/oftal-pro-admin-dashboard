@@ -10,7 +10,7 @@ const legends = {
   color: COLOR_LEGEND,
 };
 
-const Table: FC<TableProps> = ({ data, columns, special }) => {
+const Table: FC<TableProps> = ({ data, columns, special, onSelect }) => {
   const columnKeys = Object.keys(columns);
   const columnValues = Object.values(columns);
 
@@ -44,13 +44,13 @@ const Table: FC<TableProps> = ({ data, columns, special }) => {
             </Box>
           ) : (
             data.map((item, rowIndex) => (
-              <Box as="tr" key={rowIndex}>
+              <Box as="tr" key={rowIndex} onClick={() => onSelect(item)}>
                 {columnKeys.map((columnKey, cellIndex) => (
                   <Box
                     as="td"
                     padding="1rem"
-                    borderBottom="1px solid #E4E4E7"
                     key={cellIndex}
+                    borderBottom="1px solid #E4E4E7"
                   >
                     {special?.[columnKey] === 'date'
                       ? new Date(item[columnKey] as number).toLocaleDateString()

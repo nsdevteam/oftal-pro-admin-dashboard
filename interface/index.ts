@@ -10,10 +10,6 @@ export interface MenuProps {
   icon: ReactNode;
 }
 
-export interface OrderFormProps {
-  closeForm: () => void;
-}
-
 interface IEye {
   axis?: string;
   active: boolean;
@@ -29,6 +25,7 @@ export interface IAdmin {
 }
 
 export interface IClient {
+  type: number;
   email: string;
   fullName: string;
   createdAt?: number;
@@ -38,16 +35,19 @@ export interface IClient {
 }
 
 export interface IOrder {
+  status: 'pending' | 'solved';
   ref: string;
   leftEye?: IEye;
   rightEye?: IEye;
   prisma: boolean;
-  precal?: FileList;
-  recipe?: FileList;
   diameter: number;
   coloring: boolean;
+  precal?: FileList;
+  recipe?: FileList;
   observation: string;
   minimumHeight: string;
+  precals?: ReadonlyArray<string>;
+  recipes?: ReadonlyArray<string>;
   refractiveIndex: string | undefined;
   treatment: 'HMC' | 'SHMC' | 'UC' | 'HC';
   color: 'white' | 'photochromatic' | 'transitions' | 'polarised';
@@ -61,11 +61,6 @@ export interface IOrder {
     | 'bifocal';
 }
 
-export interface EyeFieldsProps {
-  label: string;
-  name: 'rightEye' | 'leftEye';
-}
-
 export type TRowData = ReadonlyArray<
   Record<string, string | number | undefined>
 >;
@@ -74,6 +69,7 @@ export interface TableProps {
   data: TRowData;
   columns: Record<string, string>;
   special?: Record<string, 'date'>;
+  onSelect: (item: Record<string, string | number | undefined>) => void;
 }
 
 export interface IUserPrices {

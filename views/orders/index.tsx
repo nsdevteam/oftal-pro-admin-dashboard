@@ -1,3 +1,4 @@
+import { WithUid } from 'burnbase/firestore';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { CSVLink } from 'react-csv';
 import { FiSearch } from 'react-icons/fi';
@@ -6,12 +7,14 @@ import { RiFileExcel2Line } from 'react-icons/ri';
 import getAllOrders from '../../api/orders/get-all-orders';
 import { Box, Button, Input, Typography } from '../../elements';
 import { IOrder } from '../../interface';
+import OrderForm from './order-form';
 import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
 import OrderTable from './orders-table';
 
 const Orders: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [orders, setOrders] = useState<ReadonlyArray<IOrder>>([]);
+  const [selectedDoc, setSelectedDoc] = useState<WithUid<IOrder> | null>(null);
+  const [orders, setOrders] = useState<ReadonlyArray<WithUid<IOrder>>>([]);
 
   useEffect(() => {
     getAllOrders()
@@ -93,7 +96,7 @@ const Orders: FC = () => {
             </Button>
           </CSVLink>
         </Box>
-        <OrderTable data={orders} />
+        <OrderTable data={orders} onSelectDoc={setSelectedDoc} />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
         <Typography as="h4">Total de resultados: {orders.length}</Typography>
@@ -110,6 +113,9 @@ const Orders: FC = () => {
           </Box>
         )} */}
       </Box>
+      {selectedDoc && (
+        <OrderForm doc={selectedDoc} closeForm={() => setSelectedDoc(null)} />
+      )}
     </Box>
   );
 };
