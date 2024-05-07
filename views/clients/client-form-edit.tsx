@@ -11,7 +11,6 @@ const ClientFormEdit: FC<ClientFormProps> = ({ closeForm }) => {
   const type = ['Tipo 1', 'Tipo 2'];
   const { userData, userAuth } = useUser();
 
-  const { reloadUserInfo } = userAuth;
   const allNames = userData?.fullName.split(' ') ?? [''];
   const { register, getValues } = useForm({
     defaultValues: {
@@ -26,7 +25,7 @@ const ClientFormEdit: FC<ClientFormProps> = ({ closeForm }) => {
         : '--',
       createdAt: userData?.createdAt ? new Date(userData.createdAt) : '--',
       type: userData?.type ? 'Tipo 2' : 'Tipo 1',
-      password: reloadUserInfo.passwordHash,
+      password: userAuth.reloadUserInfo.passwordHash,
     },
   });
 
