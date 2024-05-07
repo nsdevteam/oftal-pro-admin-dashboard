@@ -20,13 +20,7 @@ const Table: FC<TableProps> = ({ data, columns, special }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleEdit = () => {
-    try {
-      setOpen(true);
-      const sum = index++;
-      console.log('Modal open');
-    } catch (err) {
-      console.log('Edit error :: ', err);
-    }
+    setOpen(true);
   };
 
   return (
