@@ -80,7 +80,7 @@ export const COLOR_LEGEND = {
   white: 'Branca',
   photochromatic: 'Fotocromática',
   transitions: 'Transitions',
-  polarised: 'Polarizada',
+  polarized: 'Polarizada',
 };
 
 export const REFRACTIVE_VALUES: Record<

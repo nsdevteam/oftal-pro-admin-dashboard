@@ -21,6 +21,7 @@ const Table: FC<TableProps> = ({ data, columns, special }) => {
 
   const handleEdit = () => {
     setOpen(true);
+    setLoading(false);
   };
 
   return (
@@ -69,6 +70,7 @@ const Table: FC<TableProps> = ({ data, columns, special }) => {
                           <Button
                             bg="transparent"
                             disabled={loading}
+                            //For some reason this onClick is not working
                             //onClick={handleEdit}
                           >
                             <FaPen size={18} color="008000" />

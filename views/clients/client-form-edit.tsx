@@ -25,7 +25,8 @@ const ClientFormEdit: FC<ClientFormProps> = ({ closeForm }) => {
         : '--',
       createdAt: userData?.createdAt ? new Date(userData.createdAt) : '--',
       type: userData?.type ? 'Tipo 2' : 'Tipo 1',
-      password: userAuth.reloadUserInfo.passwordHash,
+      password: '',
+      confirmPassword: '',
     },
   });
 
