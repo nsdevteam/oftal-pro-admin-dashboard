@@ -5,11 +5,10 @@ import toast from 'react-hot-toast';
 
 import { clientsCollectionName } from '../../api/clients/clients.utils';
 import { Box, Button, Dropdown, Input, Typography } from '../../elements';
-import { clientTypeEnum } from '../../interface';
 import { ClientFormProps, IClientForm } from './clients.types';
 
 const ClientForm: FC<ClientFormProps> = ({ closeForm }) => {
-  const type: clientTypeEnum = ['Tipo 1', 'Tipo 2'];
+  const type = ['Tipo 1', 'Tipo 2'];
   const form = useForm<IClientForm>({
     defaultValues: {
       fullName: '',
@@ -107,7 +106,7 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm }) => {
           <Dropdown
             label="Escolha uma opção"
             values={type}
-            {...form.register('clientType')}
+            {...form.register('type')}
             onSelect={() => console.log('hello')}
           />
         </Box>

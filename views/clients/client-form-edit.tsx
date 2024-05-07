@@ -5,13 +5,14 @@ import toast from 'react-hot-toast';
 import { updateUser } from '../../api/user';
 import { useUser } from '../../context/user';
 import { Box, Button, Dropdown, Input, Typography } from '../../elements';
-import { ClientFormProps } from './clients.types';
+import { IClient } from '../../interface';
+import { ClientFormProps, IClientForm } from './clients.types';
 
 const ClientFormEdit: FC<ClientFormProps> = ({ closeForm }) => {
   const type = ['Tipo 1', 'Tipo 2'];
   const { userData, userAuth } = useUser();
   const allNames = userData?.fullName.split(' ') ?? [''];
-  const { register, getValues } = useForm({
+  const { register, getValues } = useForm<IClientForm & IClient>({
     defaultValues: {
       firstName:
         allNames.length < 4 ? allNames[0] : allNames.slice(0, -2).join(' '),
@@ -26,8 +27,6 @@ const ClientFormEdit: FC<ClientFormProps> = ({ closeForm }) => {
       type: userData?.type ? 'Tipo 2' : 'Tipo 1',
     },
   });
-
-  console.log('use get values :: ', getValues());
 
   const saveEdition = async () => {
     const { firstName, lastName, phone } = getValues();
