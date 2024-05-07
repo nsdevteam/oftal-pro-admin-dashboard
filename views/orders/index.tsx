@@ -12,6 +12,7 @@ import OrderTable from './orders-table';
 const Orders: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [orders, setOrders] = useState<ReadonlyArray<IOrder>>([]);
+  const [filterOrder, setFilterOrder] = useState('');
 
   useEffect(() => {
     getAllOrders()
@@ -74,12 +75,16 @@ const Orders: FC = () => {
             <Box display="flex" flexDirection="column" flex="1">
               <Input
                 p="L"
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
                 type="search"
+                value={filterOrder}
                 name="search"
                 mr={['0', 'S']}
                 ml={['0', 'S']}
                 borderRadius="M"
                 backgroundColor="transparent"
+                onChange={(e) => setFilterOrder(e.target.value)}
                 placeholder="Procurar por pedidos..."
               />
             </Box>
@@ -93,7 +98,19 @@ const Orders: FC = () => {
             </Button>
           </CSVLink>
         </Box>
-        <OrderTable data={orders} />
+        <OrderTable
+          data={orders.filter(({ ref, type }) => {
+            if (
+              filterOrder &&
+              !ref.includes(filterOrder) &&
+              !TYPE_LEGEND[type].includes(filterOrder)
+            ) {
+              return false;
+            }
+
+            return true;
+          })}
+        />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
         <Typography as="h4">Total de resultados: {orders.length}</Typography>

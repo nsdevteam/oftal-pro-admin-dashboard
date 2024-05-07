@@ -33,7 +33,7 @@ const Dropdown: FC<DropdownProps> = ({
   return (
     <Box id={boxId} position="relative" opacity={disabled ? 0.4 : 1}>
       <Box
-        p="0.8rem"
+        p="0.7rem"
         display="flex"
         minWidth="6rem"
         alignItems="center"

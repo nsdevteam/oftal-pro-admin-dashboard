@@ -1,8 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { FaPen } from 'react-icons/fa';
 
 import { TableProps } from '../../interface';
+import ClientFormEdit from '../../views/clients/client-form-edit';
 import { COLOR_LEGEND, TYPE_LEGEND } from '../../views/orders/orders.data';
 import Box from '../box';
+import Button from '../button';
 import Typography from '../typography';
 
 const legends = {
@@ -13,12 +16,24 @@ const legends = {
 const Table: FC<TableProps> = ({ data, columns, special }) => {
   const columnKeys = Object.keys(columns);
   const columnValues = Object.values(columns);
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const handleEdit = () => {
+    try {
+      setOpen(true);
+      const sum = index++;
+      console.log('Modal open');
+    } catch (err) {
+      console.log('Edit error :: ', err);
+    }
+  };
 
   return (
     <Box mt="1rem" width="100%">
       <Box as="table" className="tableRequest" width="100%">
         <Box as="thead">
-          <Box as="tr">
+          <Box as="tr" textAlign="left">
             {columnValues.map((column, index) => (
               <Box
                 as="th"
@@ -49,18 +64,28 @@ const Table: FC<TableProps> = ({ data, columns, special }) => {
                   <Box
                     as="td"
                     padding="1rem"
-                    borderBottom="1px solid #E4E4E7"
                     key={cellIndex}
+                    borderBottom="1px solid #E4E4E7"
+                    onClick={handleEdit}
                   >
                     {special?.[columnKey] === 'date'
                       ? new Date(item[columnKey] as number).toLocaleDateString()
                       : (legends as any)[columnKey]?.[item[columnKey] as any] ??
-                        item[columnKey]}
+                        item[columnKey] ?? (
+                          <Button
+                            bg="transparent"
+                            disabled={loading}
+                            //onClick={() => console.log('Modal aberto')}
+                          >
+                            <FaPen size={18} color="008000" />
+                          </Button>
+                        )}
                   </Box>
                 ))}
               </Box>
             ))
           )}
+          {isOpen && <ClientFormEdit closeForm={() => setOpen(false)} />}
         </Box>
       </Box>
     </Box>

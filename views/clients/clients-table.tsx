@@ -8,6 +8,7 @@ const HEADINGS: Record<string, string> = {
   fullName: 'Nome',
   email: 'Email',
   lastLoginAt: 'Último login',
+  option: 'Opções',
 };
 
 const ClientsTable: FC<{ data: ReadonlyArray<IClient> }> = ({ data }) => (

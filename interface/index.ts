@@ -3,6 +3,10 @@ import { ReactNode } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IEmptyObject {}
 
+export enum clientTypeEnum {
+  'Tipo 1',
+  'Tipo 2',
+}
 export interface MenuProps {
   id: number;
   url: string;
@@ -35,6 +39,7 @@ export interface IClient {
   lastLoginAt?: number;
   phoneNumber?: string;
   clientId: `CL${number}`;
+  type: clientTypeEnum;
 }
 
 export interface IOrder {
@@ -50,7 +55,7 @@ export interface IOrder {
   minimumHeight: string;
   refractiveIndex: string | undefined;
   treatment: 'HMC' | 'SHMC' | 'UC' | 'HC';
-  color: 'white' | 'photochromatic' | 'transitions' | 'polarised';
+  color: 'white' | 'photochromatic' | 'transitions' | 'polarized';
   type:
     | 'single-focal'
     | 'boost'

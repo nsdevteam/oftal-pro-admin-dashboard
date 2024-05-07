@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { clientsCollectionName } from '../../api/clients/clients.utils';
-import { Box, Button, Input, Typography } from '../../elements';
+import { Box, Button, Dropdown, Input, Typography } from '../../elements';
+import { clientTypeEnum } from '../../interface';
 import { ClientFormProps, IClientForm } from './clients.types';
 
 const ClientForm: FC<ClientFormProps> = ({ closeForm }) => {
+  const type: clientTypeEnum = ['Tipo 1', 'Tipo 2'];
   const form = useForm<IClientForm>({
     defaultValues: {
       fullName: '',
@@ -16,11 +18,11 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm }) => {
   });
 
   const addNewClient = async () => {
-    const { email, password, fullName, clientId } = form.getValues();
+    const { email, password, fullName, clientId, type } = form.getValues();
 
     await createUser(email, password, {
       hasInstance: true,
-      userInfo: { fullName, clientId: `CL${clientId}` },
+      userInfo: { fullName, type, clientId: `CL${clientId}` },
       userCollectionName: clientsCollectionName,
     });
     closeForm();
@@ -98,6 +100,15 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm }) => {
             border="1px solid #CDCDCD"
             {...form.register('email')}
             placeholder="centro@optico.com"
+          />
+        </Box>
+        <Box display="flex" flexDirection="column" gap="1rem">
+          <Typography>Tipo de cliente</Typography>
+          <Dropdown
+            label="Escolha uma opção"
+            values={type}
+            {...form.register('clientType')}
+            onSelect={() => console.log('hello')}
           />
         </Box>
         <Box display="flex" flexDirection="column" gap="1rem">

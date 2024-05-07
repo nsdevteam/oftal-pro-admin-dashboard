@@ -11,6 +11,7 @@ const Clients: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [clients, setClients] = useState<ReadonlyArray<IClient>>([]);
+  const [filterClients, setFilterClients] = useState('');
 
   useEffect(() => {
     getAllClients()
@@ -51,13 +52,17 @@ const Clients: FC = () => {
             <Box display="flex" flexDirection="column" flex="1">
               <Input
                 p="L"
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
                 type="search"
+                value={filterClients}
                 name="search"
                 mr={['0', 'S']}
                 ml={['0', 'S']}
                 borderRadius="M"
                 backgroundColor="transparent"
                 placeholder="Procurar por pedidos..."
+                onChange={(e) => setFilterClients(e.target.value)}
               />
             </Box>
           </Box>
@@ -68,7 +73,19 @@ const Clients: FC = () => {
             </Typography>
           </Button>
         </Box>
-        <OrderTable data={clients} />
+        <OrderTable
+          data={clients.filter(({ fullName, email }) => {
+            if (
+              filterClients &&
+              !fullName.includes(filterClients) &&
+              !email.includes(filterClients)
+            ) {
+              return false;
+            }
+
+            return true;
+          })}
+        />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
         <Typography as="h4">Total de resultados: {clients.length}</Typography>
