@@ -5,11 +5,10 @@ import toast from 'react-hot-toast';
 import { updateUser } from '../../api/user';
 import { useUser } from '../../context/user';
 import { Box, Button, Dropdown, Input, Typography } from '../../elements';
-import { clientTypeEnum } from '../../interface';
 import { ClientFormProps } from './clients.types';
 
 const ClientFormEdit: FC<ClientFormProps> = ({ closeForm }) => {
-  const type: clientTypeEnum = ['Tipo 1', 'Tipo 2'];
+  const type = ['Tipo 1', 'Tipo 2'];
   const { userData, userAuth } = useUser();
   const allNames = userData?.fullName.split(' ') ?? [''];
   const { register, getValues } = useForm({
