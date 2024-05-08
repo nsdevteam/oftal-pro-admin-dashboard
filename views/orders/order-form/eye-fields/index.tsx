@@ -45,7 +45,7 @@ const EyeFields: FC<EyeFieldsProps> = ({
           defaultChecked={eye?.active}
           onClick={() => setValue(name, { active: !eye?.active })}
         />
-        <EyeSpherical name={name} isAddition={isAddition} />
+        <EyeSpherical name={name} isAddition={isAddition} isEditable={false} />
         <InputList
           label="Cilindro"
           disabled={!isEditable}
