@@ -10,6 +10,16 @@ export interface MenuProps {
   icon: ReactNode;
 }
 
+export enum orderStatusEnum {
+  Pendente,
+  Encomendado,
+}
+
+export enum clientTypeEnum {
+  'Tipo 1',
+  'Tipo 2',
+}
+
 export interface OrderFormProps {
   closeForm: () => void;
 }
@@ -34,6 +44,7 @@ export interface IClient {
   createdAt?: number;
   lastLoginAt?: number;
   phoneNumber?: string;
+  type: clientTypeEnum;
   clientId: `CL${number}`;
 }
 
@@ -42,15 +53,20 @@ export interface IOrder {
   leftEye?: IEye;
   rightEye?: IEye;
   prisma: boolean;
-  precal?: FileList;
-  recipe?: FileList;
   diameter: number;
   coloring: boolean;
+  precal?: FileList;
+  recipe?: FileList;
+  createdAt?: number;
   observation: string;
   minimumHeight: string;
+  clientId: `CL${number}`;
+  status: orderStatusEnum;
+  precals?: ReadonlyArray<string>;
+  recipes?: ReadonlyArray<string>;
   refractiveIndex: string | undefined;
   treatment: 'HMC' | 'SHMC' | 'UC' | 'HC';
-  color: 'white' | 'photochromatic' | 'transitions' | 'polarised';
+  color: 'white' | 'photochromatic' | 'transitions' | 'polarized';
   type:
     | 'single-focal'
     | 'boost'
@@ -61,19 +77,15 @@ export interface IOrder {
     | 'bifocal';
 }
 
-export interface EyeFieldsProps {
-  label: string;
-  name: 'rightEye' | 'leftEye';
-}
-
 export type TRowData = ReadonlyArray<
-  Record<string, string | number | undefined>
+  Record<string, ReactNode | string | number | undefined>
 >;
 
 export interface TableProps {
   data: TRowData;
   columns: Record<string, string>;
   special?: Record<string, 'date'>;
+  onSelect?: (index: number) => void;
 }
 
 export interface IUserPrices {

@@ -13,10 +13,11 @@ const Dropdown: FC<DropdownProps> = ({
   legend,
   disabled,
   onSelect,
+  openState,
   defaultValue,
 }) => {
   const boxId = useId();
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(openState?.[0] ?? false);
 
   const closeDropdown = (event: any) => {
     if (
@@ -26,14 +27,70 @@ const Dropdown: FC<DropdownProps> = ({
       return;
 
     setOpen(false);
+    openState?.[1](false);
   };
 
   const dropdownRef = useClickOutsideListenerRef<HTMLDivElement>(closeDropdown);
 
+  if (openState)
+    return (
+      <Box id={boxId} position="relative" opacity={disabled ? 0.4 : 1}>
+        <Box
+          p="0.7rem"
+          display="flex"
+          minWidth="6rem"
+          alignItems="center"
+          borderRadius="0.8rem"
+          border="1px solid #CDCDCD"
+          justifyContent="space-between"
+          onClick={() => openState[1](!isOpen)}
+          cursor={disabled ? 'not-allowed' : 'pointer'}
+        >
+          <Typography as="span">
+            {defaultValue
+              ? legend?.[defaultValue] ?? defaultValue
+              : label ?? ''}
+          </Typography>
+          <Typography as="span">
+            <FiChevronDown size={24} color="#000" />
+          </Typography>
+        </Box>
+        {!disabled && openState[0] && (
+          <Box
+            bg="#fff"
+            zIndex="1"
+            mt="0.1rem"
+            display="flex"
+            minWidth="6rem"
+            overflowY="auto"
+            cursor="pointer"
+            maxHeight="10rem"
+            ref={dropdownRef}
+            overflowX="hidden"
+            position="absolute"
+            borderRadius="0.8rem"
+            flexDirection="column"
+            border="1px solid #CDCDCD"
+          >
+            {values.map((value, index) => (
+              <Box
+                key={v4()}
+                p="0.75rem"
+                onClick={() => onSelect(value)}
+                {...(index && { borderTop: '1px solid #CDCDCD' })}
+              >
+                {legend?.[value] ?? value}
+              </Box>
+            ))}
+          </Box>
+        )}
+      </Box>
+    );
+
   return (
     <Box id={boxId} position="relative" opacity={disabled ? 0.4 : 1}>
       <Box
-        p="0.8rem"
+        p="0.7rem"
         display="flex"
         minWidth="6rem"
         alignItems="center"
