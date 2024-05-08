@@ -84,7 +84,7 @@ export interface TableProps {
   data: TRowData;
   columns: Record<string, string>;
   special?: Record<string, 'date'>;
-  onSelect: (index: number) => void;
+  onSelect?: (index: number) => void;
 }
 
 export interface IUserPrices {
