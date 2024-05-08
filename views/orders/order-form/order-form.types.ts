@@ -5,6 +5,7 @@ import { IOrder } from '../../../interface';
 
 export interface OrderFormProps {
   closeForm: () => void;
+  isEditable: boolean;
   doc: WithUid<IOrder> | null;
 }
 
@@ -14,6 +15,7 @@ export interface DropdownFieldProps
     'label' | 'values' | 'legend' | 'disabled' | 'defaultValue'
   > {
   isBoolean?: boolean;
+  isEditable: boolean;
   name: keyof Omit<IOrder, 'leftEye' | 'rightEye'>;
   allowed?: [
     keyof Omit<IOrder, 'leftEye' | 'rightEye'>,

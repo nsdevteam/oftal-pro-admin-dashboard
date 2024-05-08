@@ -10,6 +10,7 @@ const EyeFields: FC<EyeFieldsProps> = ({
   label,
   name,
   isAddition,
+  isEditable,
   setAddition,
 }) => {
   const { control, setValue } = useFormContext<IOrder>();
@@ -23,8 +24,9 @@ const EyeFields: FC<EyeFieldsProps> = ({
         {type !== 'single-focal' && (
           <Typography as="label" fontSize="0.8rem">
             <input
+              disabled={!isEditable}
               type="checkbox"
-              defaultChecked={!isAddition}
+              defaultChecked={false}
               onClick={() => setAddition(!isAddition)}
             />{' '}
             Longe e Perto
@@ -39,13 +41,14 @@ const EyeFields: FC<EyeFieldsProps> = ({
       >
         <input
           type="checkbox"
+          disabled={!isEditable}
           defaultChecked={eye?.active}
           onClick={() => setValue(name, { active: !eye?.active })}
         />
         <EyeSpherical name={name} isAddition={isAddition} />
         <InputList
           label="Cilindro"
-          disabled={!eye?.active}
+          disabled={!isEditable}
           defaultValue={eye?.cylinder}
           onSelect={(value: string) => {
             const validValue = Number(value) - (Number(value) % 0.25);
@@ -60,7 +63,7 @@ const EyeFields: FC<EyeFieldsProps> = ({
         <Box display={['block', 'none']} />
         <InputList
           label="Eixo"
-          disabled={!eye?.active}
+          disabled={!isEditable}
           defaultValue={eye?.axis}
           onSelect={(value: string) => {
             const validValue = Number(value.replace('°', ''));
@@ -78,7 +81,7 @@ const EyeFields: FC<EyeFieldsProps> = ({
         {type !== 'single-focal' && isAddition && (
           <InputList
             label="Adição"
-            disabled={!eye?.active}
+            disabled={!isEditable}
             defaultValue={eye?.addition}
             onSelect={(value: string) => {
               const validValue = Number(value) - (Number(value) % 0.25);
@@ -110,12 +113,14 @@ const Eyes: FC = () => {
         name="rightEye"
         isAddition={isAddition}
         setAddition={setAddition}
+        isEditable={false}
       />
       <EyeFields
         label="Olho Esquerdo"
         name="leftEye"
         isAddition={isAddition}
         setAddition={setAddition}
+        isEditable={false}
       />
     </Box>
   );

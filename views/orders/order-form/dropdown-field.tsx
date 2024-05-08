@@ -10,11 +10,13 @@ const DropdownField: FC<DropdownFieldProps> = ({
   label,
   allowed,
   isBoolean,
+  isEditable,
   ...props
 }) => {
   const { control, setValue } = useFormContext<IOrder>();
 
   const fieldValue = useWatch({ control, name });
+  const defaultValue = 1.56;
 
   const validatorValues = useWatch({
     control,
@@ -34,7 +36,8 @@ const DropdownField: FC<DropdownFieldProps> = ({
       <Typography>{label}</Typography>
       <Dropdown
         {...props}
-        defaultValue={String(fieldValue ?? '')}
+        disabled={!isEditable}
+        defaultValue={String(fieldValue ?? defaultValue)}
         onSelect={(value: string) => {
           setValue(name, isBoolean ? JSON.parse(value) : value);
         }}

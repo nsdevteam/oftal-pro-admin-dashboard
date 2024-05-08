@@ -5,7 +5,9 @@ import { IOrder } from '../../../interface';
 import DropdownField from './dropdown-field';
 import { REFRACTIVE_VALUES } from './order-form.data';
 
-const DropdownRefractiveField: FC = () => {
+const DropdownRefractiveField: FC<{ isEditable: boolean }> = ({
+  isEditable,
+}) => {
   const { control, setValue } = useFormContext<IOrder>();
   const color = useWatch({ control, name: 'color' });
   const type = useWatch({ control, name: 'type' });
@@ -18,10 +20,11 @@ const DropdownRefractiveField: FC = () => {
     <DropdownField
       name="refractiveIndex"
       label="Índice de refracção"
-      disabled={!color || !type}
+      disabled={!isEditable}
       values={Object.entries(REFRACTIVE_VALUES[color] ?? {})
         .filter(([, allowedList]) => allowedList.includes(type))
         .map(([value]) => value)}
+      isEditable={false}
     />
   );
 };
