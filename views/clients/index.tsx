@@ -1,3 +1,4 @@
+import { WithUid } from 'burnbase/firestore';
 import { FC, useEffect, useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 
@@ -10,8 +11,9 @@ import OrderTable from './clients-table';
 const Clients: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [clients, setClients] = useState<ReadonlyArray<IClient>>([]);
   const [filterClients, setFilterClients] = useState('');
+  const [clients, setClients] = useState<ReadonlyArray<WithUid<IClient>>>([]);
+  const [selectedDoc, setSelectedDoc] = useState<WithUid<IClient> | null>(null);
 
   useEffect(() => {
     getAllClients()
@@ -74,6 +76,7 @@ const Clients: FC = () => {
           </Button>
         </Box>
         <OrderTable
+          setSelectedDoc={setSelectedDoc}
           data={clients.filter(({ fullName, email }) => {
             if (
               filterClients &&
@@ -89,20 +92,16 @@ const Clients: FC = () => {
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
         <Typography as="h4">Total de resultados: {clients.length}</Typography>
-        {/* {!!orders.length && (
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Button>
-              <FiChevronLeft size={16} color="#27272A" />
-              <Typography>Anterior</Typography>
-            </Button>
-            <Button>
-              <Typography>Seguinte</Typography>
-              <FiChevronRight size={16} color="#27272A" />
-            </Button>
-          </Box>
-        )} */}
       </Box>
-      {isOpen && <ClientForm closeForm={() => setOpen(false)} />}
+      {(isOpen || selectedDoc) && (
+        <ClientForm
+          doc={selectedDoc}
+          closeForm={() => {
+            setOpen(false);
+            setSelectedDoc(null);
+          }}
+        />
+      )}
     </Box>
   );
 };

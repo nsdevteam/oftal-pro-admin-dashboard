@@ -1624,10 +1624,10 @@ braces@^3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-burnbase@^0.1.6-alpha.0:
-  version "0.1.6-alpha.0"
-  resolved "https://registry.yarnpkg.com/burnbase/-/burnbase-0.1.6-alpha.0.tgz#7d859c7708b58bd080cf922d787e5cfcc0815314"
-  integrity sha512-dqPlfuTlKyivOqXcJiRFqHoOUJfHZ79qDwzOOJK63cONWHgaYsRcWZ2LteWtEHUdbxha0at/YLlXRDUqtc+rAg==
+burnbase@^0.2.0-alpha.3:
+  version "0.2.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/burnbase/-/burnbase-0.2.0-alpha.3.tgz#e1c57ef1c21ae8ea3be8191a3c1e5ef0cb821780"
+  integrity sha512-4T+9SykSVyOoc/NKd+KYwdLeJNsJeaAYpNbmgMWtI1Bg2FQWU7C978eP7MQTh/INKwPkN1OF5ckqll1pQcXkcg==
   dependencies:
     firebase "^10.7.1"
     unikey "^1.0.0"

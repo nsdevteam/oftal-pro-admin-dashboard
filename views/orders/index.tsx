@@ -1,3 +1,4 @@
+import { WithUid } from 'burnbase/firestore';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { CSVLink } from 'react-csv';
 import { FiSearch } from 'react-icons/fi';
@@ -6,13 +7,15 @@ import { RiFileExcel2Line } from 'react-icons/ri';
 import getAllOrders from '../../api/orders/get-all-orders';
 import { Box, Button, Input, Typography } from '../../elements';
 import { IOrder } from '../../interface';
+import OrderForm from './order-form';
 import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
 import OrderTable from './orders-table';
 
 const Orders: FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [orders, setOrders] = useState<ReadonlyArray<IOrder>>([]);
   const [filterOrder, setFilterOrder] = useState('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [orders, setOrders] = useState<ReadonlyArray<WithUid<IOrder>>>([]);
+  const [selectDoc, setSelectedDoc] = useState<WithUid<IOrder> | null>(null);
 
   useEffect(() => {
     getAllOrders()
@@ -99,6 +102,7 @@ const Orders: FC = () => {
           </CSVLink>
         </Box>
         <OrderTable
+          setSelectedDoc={setSelectedDoc}
           data={orders.filter(({ ref, type }) => {
             if (
               filterOrder &&
@@ -114,19 +118,10 @@ const Orders: FC = () => {
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
         <Typography as="h4">Total de resultados: {orders.length}</Typography>
-        {/* {!!orders.length && (
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Button>
-              <FiChevronLeft size={16} color="#27272A" />
-              <Typography>Anterior</Typography>
-            </Button>
-            <Button>
-              <Typography>Seguinte</Typography>
-              <FiChevronRight size={16} color="#27272A" />
-            </Button>
-          </Box>
-        )} */}
       </Box>
+      {selectDoc && (
+        <OrderForm doc={selectDoc} closeForm={() => setSelectedDoc(null)} />
+      )}
     </Box>
   );
 };

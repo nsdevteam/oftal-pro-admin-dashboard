@@ -1,4 +1,4 @@
-import { orderStatusEnum } from '../../interface';
+import { orderStatusEnum } from '../../../interface';
 
 export const ADDITION_VALUES = Array.from(
   { length: 13 },
@@ -49,11 +49,6 @@ export const AXIS_VALUES_LEGEND = AXIS_VALUES.reduce(
   {}
 );
 
-export const STATUS_LEGEND = {
-  [orderStatusEnum.Pendente]: 'Pendente',
-  [orderStatusEnum.Encomendado]: 'Encomendado',
-};
-
 export const TREATMENT_VALUES = ['HMC', 'SHMC', 'UC', 'HC'];
 
 export const TYPE_VALUES = [
@@ -88,6 +83,11 @@ export const COLOR_LEGEND = {
   photochromatic: 'Fotocromática',
   transitions: 'Transitions',
   polarized: 'Polarizada',
+};
+
+export const STATUS_LEGEND = {
+  [orderStatusEnum.Pendente]: 'Pendente',
+  [orderStatusEnum.Encomendado]: 'Encomendado',
 };
 
 export const REFRACTIVE_VALUES: Record<
