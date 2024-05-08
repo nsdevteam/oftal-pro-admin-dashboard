@@ -12,7 +12,7 @@ import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
 import OrderTable from './orders-table';
 
 const Orders: FC = () => {
-  const [filterOrder, setFilterOrder] = useState('');
+  const [filter, setFilter] = useState('');
   const [loading, setLoading] = useState<boolean>(true);
   const [orders, setOrders] = useState<ReadonlyArray<WithUid<IOrder>>>([]);
   const [selectDoc, setSelectedDoc] = useState<WithUid<IOrder> | null>(null);
@@ -23,26 +23,61 @@ const Orders: FC = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const filterOrder = orders.filter(({ ref, type }) => {
+    if (
+      filter &&
+      !ref.includes(filter) &&
+      !TYPE_LEGEND[type].includes(filter)
+    ) {
+      return false;
+    }
+
+    return true;
+  });
+
   const csvData = useMemo(
     () => [
       [
         'Ref/Nome de pacitente',
         'Tipo',
         'Índice de refração',
-        'Cor',
         'Tratamento',
         'Diâmetro',
+        'Lado',
+        'Esférico',
+        'Cilindro',
+        'Eixo',
+        'Adição',
       ],
-      ...orders.map((order) => [
-        order.ref,
-        TYPE_LEGEND[order.type],
-        order.refractiveIndex,
-        COLOR_LEGEND[order.color],
-        order.treatment,
-        order.diameter,
+      ...filterOrder.flatMap((order) => [
+        [
+          order.ref,
+          TYPE_LEGEND[order.type],
+          order.refractiveIndex,
+          COLOR_LEGEND[order.color],
+          order.treatment,
+          order.diameter,
+          'Direito',
+          order.rightEye?.spherical ?? '--',
+          order.rightEye?.cylinder ?? '--',
+          order.rightEye?.axis ?? '--',
+          order.rightEye?.addition ?? '--',
+        ],
+        [
+          order.ref,
+          TYPE_LEGEND[order.type],
+          order.refractiveIndex,
+          order.treatment,
+          order.diameter,
+          'Esquerdo',
+          order.leftEye?.spherical ?? '--',
+          order.leftEye?.cylinder ?? '--',
+          order.leftEye?.axis ?? '--',
+          order.leftEye?.addition ?? '--',
+        ],
       ]),
     ],
-    [orders]
+    [filterOrder]
   );
 
   return (
@@ -81,14 +116,14 @@ const Orders: FC = () => {
                 // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
                 type="search"
-                value={filterOrder}
+                value={filter}
                 name="search"
                 mr={['0', 'S']}
                 ml={['0', 'S']}
                 borderRadius="M"
                 backgroundColor="transparent"
-                onChange={(e) => setFilterOrder(e.target.value)}
                 placeholder="Procurar por pedidos..."
+                onChange={(e) => setFilter(e.target.value)}
               />
             </Box>
           </Box>
@@ -101,20 +136,7 @@ const Orders: FC = () => {
             </Button>
           </CSVLink>
         </Box>
-        <OrderTable
-          setSelectedDoc={setSelectedDoc}
-          data={orders.filter(({ ref, type }) => {
-            if (
-              filterOrder &&
-              !ref.includes(filterOrder) &&
-              !TYPE_LEGEND[type].includes(filterOrder)
-            ) {
-              return false;
-            }
-
-            return true;
-          })}
-        />
+        <OrderTable setSelectedDoc={setSelectedDoc} data={filterOrder} />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
         <Typography as="h4">Total de resultados: {orders.length}</Typography>

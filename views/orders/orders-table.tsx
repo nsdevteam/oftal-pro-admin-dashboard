@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import { Box, Table, Typography } from '../../elements';
 import { TRowData } from '../../interface';
-import { STATUS_LEGEND } from './orders.data';
 import { OrdersTableProps } from './orders.types';
 
 const HEADINGS: Record<string, string> = {
@@ -10,7 +9,6 @@ const HEADINGS: Record<string, string> = {
   type: 'Tipo',
   refractiveIndex: 'Índice de refração',
   color: 'Cor',
-  status: 'Estado',
   spherical: 'Esférico',
   cylinder: 'Cilindro',
   axis: 'Eixo',
@@ -25,20 +23,11 @@ const OrderTable: FC<OrdersTableProps> = ({ data, setSelectedDoc }) => (
       onSelect={(index) => setSelectedDoc(data[index])}
       data={
         data.map(
-          ({
-            ref,
-            type,
-            color,
-            status,
-            leftEye,
-            rightEye,
-            refractiveIndex,
-          }) => ({
+          ({ ref, type, color, leftEye, rightEye, refractiveIndex }) => ({
             ref,
             type,
             refractiveIndex,
             color,
-            status: status ? STATUS_LEGEND[status] : 'Pendente',
             spherical: (
               <>
                 <strong>D: </strong>

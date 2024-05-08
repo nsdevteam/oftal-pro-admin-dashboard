@@ -57,6 +57,7 @@ export interface IOrder {
   coloring: boolean;
   precal?: FileList;
   recipe?: FileList;
+  createdAt?: number;
   observation: string;
   minimumHeight: string;
   clientId: `CL${number}`;
