@@ -44,7 +44,7 @@ const Table: FC<TableProps> = ({ data, columns, onSelect }) => {
             </Box>
           ) : (
             data.map((item, rowIndex) => (
-              <Box as="tr" key={rowIndex} onClick={() => onSelect(rowIndex)}>
+              <Box as="tr" key={rowIndex} onClick={() => onSelect?.(rowIndex)}>
                 {columnKeys.map((columnKey, cellIndex) => (
                   <Box
                     as="td"
