@@ -11,9 +11,10 @@ const DropdownRefractiveField: FC<{ isEditable: boolean }> = ({
   const { control, setValue } = useFormContext<IOrder>();
   const color = useWatch({ control, name: 'color' });
   const type = useWatch({ control, name: 'type' });
+  const refractive = useWatch({ control, name: 'refractiveIndex' });
 
   useEffect(() => {
-    setValue('refractiveIndex', undefined);
+    setValue('refractiveIndex', refractive);
   }, [color, type]);
 
   return (

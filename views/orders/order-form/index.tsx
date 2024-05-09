@@ -121,7 +121,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
                 />
               </Box>
               <Box gridColumn="2 span">
-                <DropdownRefractiveField isEditable={false} />
+                <DropdownRefractiveField isEditable={true} />
               </Box>
             </Box>
             <Eyes />
