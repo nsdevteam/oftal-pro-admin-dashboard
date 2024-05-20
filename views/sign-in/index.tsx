@@ -104,7 +104,7 @@ const Home: FC = () => {
             color="textInverted"
             placeholder="johndoe@oftalpro.com"
             nFocus={{
-              border: '1px solid #4763E4',
+              border: '1px solid #439ACC',
             }}
             {...register('email', {
               required: 'Campo email é obrigatório',
@@ -154,7 +154,7 @@ const Home: FC = () => {
               minWidth={['100%', '10rem']}
               placeholder="***************"
               nFocus={{
-                border: '1px solid #4763E4',
+                border: '1px solid #439ACC',
               }}
               {...register('password', {
                 required: 'Campo palavra-passe é obrigatório',

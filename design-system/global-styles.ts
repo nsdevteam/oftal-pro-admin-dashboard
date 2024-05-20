@@ -63,7 +63,7 @@ const GlobalStyles = css`
     -webkit-user-select: none;
   }
   .inputFile:hover::before {
-    border-color: #4763e4;
+    border-color: #439acc;
   }
   .inputFile:active::before {
     background: transparent;
@@ -96,7 +96,7 @@ const GlobalStyles = css`
   .alertDanger {
     font-size: 0.75rem;
     margin: 0.5rem;
-    color: #dc2626;
+    color: #fc6363;
   }
 `;
 

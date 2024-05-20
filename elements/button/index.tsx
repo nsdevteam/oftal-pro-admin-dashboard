@@ -14,7 +14,7 @@ const Button: FC<PropsWithRef<PropsWithChildren<ButtonProps>>> = forwardRef(
         // @ts-ignore
         ref={ref}
         color="#FFF"
-        bg="#4763E4"
+        bg="#439ACC"
         padding="1rem"
         display="flex"
         cursor="pointer"

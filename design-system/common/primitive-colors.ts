@@ -1,6 +1,6 @@
 const primitiveColors = {
   PRIMARY_100: '#65BBCA',
-  SECONDARY_100: '#253E6A',
+  SECONDARY_100: '#439ACC',
   FOOTER: '#1A2C4D',
   FOOTER_FONT: '#A6A6A6',
   NEUTRAL: '#000000',

@@ -74,7 +74,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpenMenu }) => {
         <Typography padding="0.5rem">{userData?.fullName}</Typography>
         <Typography padding="0.5rem">{userData?.email}</Typography>
         <Button
-          bg="#DC2626"
+          bg="#FC6363"
           width="calc(100% - 2rem)"
           onClick={handleSubmit(handleLogout)}
         >
