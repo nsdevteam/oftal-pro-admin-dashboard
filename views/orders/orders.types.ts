@@ -2,7 +2,7 @@ import { WithUid } from 'burnbase/firestore';
 
 import { IOrder } from '../../interface';
 
-export interface OrderTableProps {
+export interface OrdersTableProps {
   data: ReadonlyArray<WithUid<IOrder>>;
-  onSelectDoc: (uid: WithUid<IOrder>) => void;
+  setSelectedDoc: (data: WithUid<IOrder>) => void;
 }

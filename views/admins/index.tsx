@@ -11,6 +11,7 @@ const Admins: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [admins, setAdmins] = useState<ReadonlyArray<IAdmin>>([]);
+  const [filterAdmins, setFilterAdmins] = useState('');
 
   useEffect(() => {
     getAllAdmins()
@@ -51,13 +52,17 @@ const Admins: FC = () => {
             <Box display="flex" flexDirection="column" flex="1">
               <Input
                 p="L"
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
                 type="search"
+                value={filterAdmins}
                 name="search"
                 mr={['0', 'S']}
                 ml={['0', 'S']}
                 borderRadius="M"
                 backgroundColor="transparent"
                 placeholder="Procurar por administrador..."
+                onChange={(e) => setFilterAdmins(e.target.value)}
               />
             </Box>
           </Box>
@@ -68,7 +73,19 @@ const Admins: FC = () => {
             </Typography>
           </Button>
         </Box>
-        <AdminTable data={admins} />
+        <AdminTable
+          data={admins.filter(({ fullName, email }) => {
+            if (
+              filterAdmins &&
+              !fullName.includes(filterAdmins) &&
+              !email.includes(filterAdmins)
+            ) {
+              return false;
+            }
+
+            return true;
+          })}
+        />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
         <Typography as="h4">Total de resultados: {admins.length}</Typography>

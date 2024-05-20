@@ -1,26 +1,72 @@
-import { WithUid } from 'burnbase/firestore';
 import { FC } from 'react';
 
 import { Box, Table, Typography } from '../../elements';
-import { IOrder, TRowData } from '../../interface';
-import { OrderTableProps } from './orders.types';
+import { TRowData } from '../../interface';
+import { OrdersTableProps } from './orders.types';
 
 const HEADINGS: Record<string, string> = {
-  clientId: 'Cliente',
-  ref: 'Ref/Nome de pacitente',
+  ref: 'Ref/Nome de pacicente',
   type: 'Tipo',
   refractiveIndex: 'Índice de refração',
   color: 'Cor',
-  treatment: 'Tratamento',
+  spherical: 'Esférico',
+  cylinder: 'Cilindro',
+  axis: 'Eixo',
+  addition: 'Adição',
 };
 
-const OrderTable: FC<OrderTableProps> = ({ data, onSelectDoc }) => (
+const OrderTable: FC<OrdersTableProps> = ({ data, setSelectedDoc }) => (
   <Box width="100%">
-    <Typography as="h2">Listagem de pedidos</Typography>
+    <Typography as="h2">Listagem de encomendas</Typography>
     <Table
       columns={HEADINGS}
-      data={data as unknown as TRowData}
-      onSelect={(item) => onSelectDoc(item as unknown as WithUid<IOrder>)}
+      onSelect={(index) => setSelectedDoc(data[index])}
+      data={
+        data.map(
+          ({ ref, type, color, leftEye, rightEye, refractiveIndex }) => ({
+            ref,
+            type,
+            refractiveIndex,
+            color,
+            spherical: (
+              <>
+                <strong>D: </strong>
+                {rightEye?.spherical || '--'}
+                <br />
+                <strong>E: </strong>
+                {leftEye?.spherical || '--'}
+              </>
+            ),
+            cylinder: (
+              <>
+                <strong>D: </strong>
+                {rightEye?.cylinder || '--'}
+                <br />
+                <strong>E: </strong>
+                {leftEye?.cylinder || '--'}
+              </>
+            ),
+            addition: (
+              <>
+                <strong>D: </strong>
+                {rightEye?.addition || '--'}
+                <br />
+                <strong>E: </strong>
+                {leftEye?.addition || '--'}
+              </>
+            ),
+            axis: (
+              <>
+                <strong>D: </strong>
+                {rightEye?.axis || '--'}
+                <br />
+                <strong>E: </strong>
+                {leftEye?.axis || '--'}
+              </>
+            ),
+          })
+        ) as TRowData
+      }
     />
   </Box>
 );

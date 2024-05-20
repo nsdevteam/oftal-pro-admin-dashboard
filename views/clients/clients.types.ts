@@ -1,3 +1,5 @@
+import { WithUid } from 'burnbase/firestore';
+
 import { IClient } from '../../interface';
 
 export interface IClientForm extends IClient {
@@ -7,4 +9,10 @@ export interface IClientForm extends IClient {
 
 export interface ClientFormProps {
   closeForm: () => void;
+  doc: WithUid<IClient> | null;
+}
+
+export interface ClientTableProps {
+  data: ReadonlyArray<WithUid<IClient>>;
+  setSelectedDoc: (data: WithUid<IClient>) => void;
 }

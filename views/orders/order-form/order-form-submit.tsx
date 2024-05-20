@@ -1,18 +1,16 @@
 import { FC } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
-import toast from 'react-hot-toast';
 
-import { updateOrder } from '../../../api/orders';
 import { useUser } from '../../../context/user';
-import { Box, Button, Typography } from '../../../elements';
+import { Box, Typography } from '../../../elements';
 import { IOrder } from '../../../interface';
 import { formatMoney } from '../../../utils';
 import { COLOR_VALUES, TYPE_VALUES } from './order-form.data';
 import { OrderFormSubmitProps } from './order-form.types';
 
-const OrderFormSubmit: FC<OrderFormSubmitProps> = ({ docId }) => {
+const OrderFormSubmit: FC<OrderFormSubmitProps> = () => {
   const { prices } = useUser();
-  const { control, getValues, formState } = useFormContext<IOrder>();
+  const { control } = useFormContext<IOrder>();
 
   const {
     leftEye,
@@ -54,30 +52,11 @@ const OrderFormSubmit: FC<OrderFormSubmitProps> = ({ docId }) => {
       ((leftEye?.active ? 1 : 0) + (rightEye?.active ? 1 : 0))
     : 0;
 
-  const handleSubmit = async () =>
-    await updateOrder({
-      ...getValues(),
-      total,
-      docId,
-    });
-
-  const onSubmit = () => {
-    if (!formState.isValid)
-      return toast.error('Preencha o formulário correctamente');
-
-    toast.promise(handleSubmit(), {
-      loading: 'A atualizar pedido...',
-      success: 'Pedido atualizado com sucesso!',
-      error: 'Erro ao atualizar o pedido',
-    });
-  };
-
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-end" gap="2rem">
       <Typography fontSize="1.5rem">
         Subtotal: {formatMoney(total)} AOA
       </Typography>
-      <Button onClick={onSubmit}>Atualizar</Button>
     </Box>
   );
 };

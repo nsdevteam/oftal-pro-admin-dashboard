@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface DropdownProps {
   label?: string;
   disabled?: boolean;
@@ -5,4 +7,5 @@ export interface DropdownProps {
   defaultValue?: string | number;
   legend?: Record<string, string>;
   onSelect: (value: string) => void;
+  openState?: [boolean, Dispatch<SetStateAction<boolean>>];
 }

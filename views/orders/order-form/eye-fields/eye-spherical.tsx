@@ -7,17 +7,17 @@ import { IOrder } from '../../../../interface';
 const EyeSpherical: FC<{
   isAddition: boolean;
   name: 'leftEye' | 'rightEye';
-}> = ({ name, isAddition }) => {
+  isEditable: boolean;
+}> = ({ name, isAddition, isEditable }) => {
   const { control, setValue } = useFormContext<IOrder>();
 
-  const active = useWatch({ control, name: `${name}.active` });
   const addition = useWatch({ control, name: `${name}.addition` });
   const spherical = useWatch({ control, name: `${name}.spherical` });
 
   return (
     <Box display="flex" flexDirection="column" gap="0.5rem">
       <InputList
-        disabled={!active}
+        disabled={!isEditable}
         defaultValue={spherical}
         label={`Esférico ${isAddition ? '' : '(longe)'}`}
         onSelect={(value: string) => {
@@ -32,7 +32,7 @@ const EyeSpherical: FC<{
       />
       {!isAddition && (
         <InputList
-          disabled={!active}
+          disabled={!isEditable}
           label={`Esférico ${isAddition ? '' : '(perto)'}`}
           defaultValue={String(
             (

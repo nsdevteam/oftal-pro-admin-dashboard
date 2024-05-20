@@ -8,7 +8,7 @@ export const menuLink: MenuProps[] = [
   {
     id: 1,
     url: '/orders',
-    title: 'Pedidos',
+    title: 'Encomendas',
     icon: <FiFileText size={18} color="#FFF" />,
   },
   {

@@ -3,7 +3,12 @@ import { ChangeEventHandler, FC, useId } from 'react';
 import { Box, Typography } from '../index';
 import { AttachmentProps } from './attachment.types';
 
-const Attachment: FC<AttachmentProps> = ({ label, files, onChange }) => {
+const Attachment: FC<AttachmentProps> = ({
+  label,
+  files,
+  onChange,
+  isEditable,
+}) => {
   const id = useId();
 
   const handleOnChangeFile: ChangeEventHandler<HTMLInputElement> = (e) =>
@@ -15,6 +20,7 @@ const Attachment: FC<AttachmentProps> = ({ label, files, onChange }) => {
         id={id}
         multiple
         type="file"
+        disabled={!isEditable}
         name="attachment"
         style={{ display: 'none' }}
         onChange={handleOnChangeFile}

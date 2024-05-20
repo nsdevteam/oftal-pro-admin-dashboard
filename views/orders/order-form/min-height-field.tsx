@@ -4,7 +4,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { IOrder } from '../../../interface';
 import DropdownField from './dropdown-field';
 
-const MinimumHeightField: FC = () => {
+const MinimumHeightField: FC<{ isEditable: boolean }> = ({ isEditable }) => {
   const { control, setValue } = useFormContext<IOrder>();
   const type = useWatch({ control, name: 'type' });
 
@@ -16,9 +16,11 @@ const MinimumHeightField: FC = () => {
 
   return (
     <DropdownField
+      disabled={isEditable}
       name="minimumHeight"
       label="Altura mín"
       values={['13', '15', '17', '19', '21']}
+      isEditable={false}
     />
   );
 };

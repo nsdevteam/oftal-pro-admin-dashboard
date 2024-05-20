@@ -10,6 +10,7 @@ const DropdownField: FC<DropdownFieldProps> = ({
   label,
   allowed,
   isBoolean,
+  isEditable,
   ...props
 }) => {
   const { control, setValue } = useFormContext<IOrder>();
@@ -34,6 +35,7 @@ const DropdownField: FC<DropdownFieldProps> = ({
       <Typography>{label}</Typography>
       <Dropdown
         {...props}
+        disabled={!isEditable}
         defaultValue={String(fieldValue ?? '')}
         onSelect={(value: string) => {
           setValue(name, isBoolean ? JSON.parse(value) : value);
