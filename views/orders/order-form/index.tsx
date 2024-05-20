@@ -23,7 +23,7 @@ import { OrderFormProps } from './order-form.types';
 import OrderFormSubmit from './order-form-submit';
 import TreatmentDropdownField from './treatment-dropdown-field';
 
-const OrderForm: FC<OrderFormProps> = ({ closeForm, doc }) => {
+const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
   const form = useForm<IOrder>({
     defaultValues: {
       diameter: 70,
@@ -101,23 +101,27 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc }) => {
                 <DropdownField
                   label="Tipo"
                   name="type"
+                  disabled={!isEditable}
                   values={TYPE_VALUES}
                   legend={TYPE_LEGEND}
+                  isEditable={false}
                 />
               </Box>
               <Box gridColumn="2 span">
-                <TreatmentDropdownField />
+                <TreatmentDropdownField isEditable={false} />
               </Box>
               <Box gridColumn="2 span">
                 <DropdownField
                   label="Cor"
                   name="color"
+                  disabled={!isEditable}
                   values={COLOR_VALUES}
                   legend={COLOR_LEGEND}
+                  isEditable={false}
                 />
               </Box>
               <Box gridColumn="2 span">
-                <DropdownRefractiveField />
+                <DropdownRefractiveField isEditable={true} />
               </Box>
             </Box>
             <Eyes />
@@ -133,6 +137,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc }) => {
                   min="50"
                   max="80"
                   type="number"
+                  disabled={!isEditable}
                   borderRadius="0.8rem"
                   border="1px solid #CDCDCD"
                   {...form.register('diameter', {
@@ -152,11 +157,13 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc }) => {
               </Box>
               <DropdownField
                 isBoolean
+                disabled={!isEditable}
                 name="coloring"
                 label="Coloração"
                 values={['true', 'false']}
                 legend={{ true: 'Sim', false: 'Não' }}
                 allowed={['refractiveIndex', ['1.5', '1.56', '1.6', '1.67']]}
+                isEditable={false}
               />
               <DropdownField
                 isBoolean
@@ -164,13 +171,16 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc }) => {
                 label="Prisma"
                 values={['true', 'false']}
                 legend={{ true: 'Sim', false: 'Não' }}
+                disabled={!isEditable}
+                isEditable={false}
               />
-              <MinimumHeightField />
+              <MinimumHeightField isEditable={false} />
             </Box>
             <Box display="flex" gap="1.25rem" flexDirection="column">
               <Box display="flex" flexDirection="column" gap="1rem">
                 <Typography>Nome do paciente/Referência</Typography>
                 <Input
+                  disabled={!isEditable}
                   borderRadius="0.8rem"
                   border="1px solid #CDCDCD"
                   placeholder="Firmino Miguel"
@@ -190,6 +200,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc }) => {
                     label="Adicionar ficheiro"
                     files={form.getValues('recipe')}
                     onChange={(files) => form.setValue('recipe', files)}
+                    isEditable={false}
                   />
                 </Box>
                 <Box display="flex" flexDirection="column" gap="1rem">
@@ -200,12 +211,14 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc }) => {
                     label="Adicionar ficheiro"
                     files={form.getValues('precal')}
                     onChange={(files) => form.setValue('precal', files)}
+                    isEditable={false}
                   />
                 </Box>
               </Box>
               <Box display="flex" flexDirection="column" gap="1rem">
                 <Typography>Observações</Typography>
                 <Textarea
+                  disabled={!isEditable}
                   onChange={(e) => form.setValue('observation', e.target.value)}
                 />
               </Box>

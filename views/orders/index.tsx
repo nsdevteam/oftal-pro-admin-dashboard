@@ -142,7 +142,11 @@ const Orders: FC = () => {
         <Typography as="h4">Total de resultados: {orders.length}</Typography>
       </Box>
       {selectDoc && (
-        <OrderForm doc={selectDoc} closeForm={() => setSelectedDoc(null)} />
+        <OrderForm
+          doc={selectDoc}
+          closeForm={() => setSelectedDoc(null)}
+          isEditable={false}
+        />
       )}
     </Box>
   );
