@@ -5,9 +5,9 @@ import { AttachmentProps } from './attachment.types';
 
 const Attachment: FC<AttachmentProps> = ({
   label,
-  files,
   onChange,
-  isEditable,
+  disabled,
+  supportingText,
 }) => {
   const id = useId();
 
@@ -20,19 +20,22 @@ const Attachment: FC<AttachmentProps> = ({
         id={id}
         multiple
         type="file"
-        disabled={!isEditable}
         name="attachment"
+        disabled={disabled}
         style={{ display: 'none' }}
         onChange={handleOnChangeFile}
-        accept=".doc,.pdf,.jpg,.jpeg,.png"
+        accept=".csv"
       />
-      <Box display="flex" columnGap="8px" alignItems="center">
+      <Box
+        display="flex"
+        columnGap="8px"
+        alignItems="center"
+        {...(disabled && { opacity: 0.7 })}
+      >
         <Box
-          aria-label="add attachment"
-          color="#FFF"
-          bg="#439ACC"
           padding="1rem"
           display="flex"
+          color="#A6A6A6"
           cursor="pointer"
           fontWeight="bold"
           fontSize="0.75rem"
@@ -40,11 +43,13 @@ const Attachment: FC<AttachmentProps> = ({
           borderRadius="0.8rem"
           justifyContent="center"
           nHover={{ opacity: 0.8 }}
+          border="1px solid #A6A6A6"
+          aria-label="add attachment"
         >
           {label}
         </Box>
-        {!!files?.length && (
-          <Typography color="white">{files.length}</Typography>
+        {supportingText && (
+          <Typography color="#A6A6A6">{supportingText}</Typography>
         )}
       </Box>
     </Box>

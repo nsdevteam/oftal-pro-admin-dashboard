@@ -1,6 +1,6 @@
 export interface AttachmentProps {
   label: string;
-  files?: FileList;
-  isEditable: boolean;
+  disabled: boolean;
+  supportingText?: string;
   onChange: (file: FileList) => void;
 }

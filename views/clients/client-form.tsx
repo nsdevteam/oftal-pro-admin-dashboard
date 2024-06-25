@@ -12,6 +12,7 @@ import { updateClient } from '../../api/clients';
 import { clientsCollectionName } from '../../api/clients/clients.utils';
 import { Box, Button, Dropdown, Input, Typography } from '../../elements';
 import { CLIENT_TYPE_LEGEND } from './client.data';
+import ClientFormPrices from './client-prices';
 import { ClientFormProps, IClientForm } from './clients.types';
 
 const ClientFormSelectType: FC = () => {
@@ -34,28 +35,30 @@ const ClientFormSelectType: FC = () => {
   );
 };
 
-const ClientForm: FC<ClientFormProps> = ({ closeForm, doc }) => {
+const ClientForm: FC<ClientFormProps> = ({ closeForm, doc, prices }) => {
   const form = useForm<IClientForm>({
     defaultValues: {
-      fullName: '',
       email: '',
+      fullName: '',
+      priceId: 'NoFlnYsN5tOM8RETJ38R',
       ...doc,
     },
   });
 
   const submitClient = async () => {
     try {
-      const { email, password, fullName, clientId, type } = form.getValues();
+      const { email, password, fullName, clientId, type, priceId } =
+        form.getValues();
       if (!doc) {
         await createUser(email, password, {
           hasInstance: true,
-          userInfo: { fullName, type, clientId: `CL${clientId}` },
+          userInfo: { fullName, type, clientId: `CL${clientId}`, priceId },
           userCollectionName: clientsCollectionName,
         });
         return;
       }
 
-      await updateClient(doc.uid, { fullName, clientId, type });
+      await updateClient(doc.uid, { fullName, clientId, type, priceId });
     } finally {
       closeForm();
     }
@@ -139,6 +142,10 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm, doc }) => {
           <Box display="flex" flexDirection="column" gap="1rem">
             <Typography>Tipo de cliente</Typography>
             <ClientFormSelectType />
+          </Box>
+          <Box display="flex" flexDirection="column" gap="1rem">
+            <Typography>Tabela de Preço</Typography>
+            <ClientFormPrices prices={prices} />
           </Box>
           {!doc && (
             <>

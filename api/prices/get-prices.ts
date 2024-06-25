@@ -1,11 +1,8 @@
-import { getDocument } from 'burnbase/firestore';
+import { getAllData } from 'burnbase/firestore';
 
-import { TGetPrices } from './prices.protocol';
+import { IUserPrices } from '../../interface';
 import { pricesCollectionName } from './prices.utils';
 
-const getPrices: TGetPrices = (docId) =>
-  getDocument(pricesCollectionName, docId)
-    .then((snapshot) => snapshot.data())
-    .catch((error) => error);
+const getPrices = getAllData<IUserPrices>(pricesCollectionName);
 
 export default getPrices;

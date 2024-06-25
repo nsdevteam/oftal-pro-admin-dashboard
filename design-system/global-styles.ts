@@ -63,7 +63,7 @@ const GlobalStyles = css`
     -webkit-user-select: none;
   }
   .inputFile:hover::before {
-    border-color: #439acc;
+    border-color: #a6a6a6;
   }
   .inputFile:active::before {
     background: transparent;

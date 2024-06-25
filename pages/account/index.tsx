@@ -60,7 +60,7 @@ const AccountPage: FC = () => (
                 bg="transparent"
                 placeholder="john"
                 nFocus={{
-                  borderColor: '#439ACC',
+                  borderColor: '#A6A6A6',
                 }}
               />
             </Box>
@@ -89,7 +89,7 @@ const AccountPage: FC = () => (
                 width={['30rem']}
                 placeholder="Doe"
                 nFocus={{
-                  borderColor: '#439ACC',
+                  borderColor: '#A6A6A6',
                 }}
               />
             </Box>
@@ -125,7 +125,7 @@ const AccountPage: FC = () => (
                 bg="transparent"
                 placeholder="johndoe@oftalpro.com"
                 nFocus={{
-                  borderColor: '#439ACC',
+                  borderColor: '#A6A6A6',
                 }}
               />
             </Box>
@@ -154,7 +154,7 @@ const AccountPage: FC = () => (
                 bg="transparent"
                 placeholder="(+244) 945 000 000"
                 nFocus={{
-                  borderColor: '#439ACC',
+                  borderColor: '#A6A6A6',
                 }}
               />
             </Box>
@@ -190,7 +190,7 @@ const AccountPage: FC = () => (
                 bg="transparent"
                 placeholder="10-02-2019"
                 nFocus={{
-                  borderColor: '#439ACC',
+                  borderColor: '#A6A6A6',
                 }}
               />
             </Box>
@@ -220,7 +220,7 @@ const AccountPage: FC = () => (
                 bg="transparent"
                 placeholder="20-03-2020"
                 nFocus={{
-                  borderColor: '#439ACC',
+                  borderColor: '#A6A6A6',
                 }}
               />
             </Box>

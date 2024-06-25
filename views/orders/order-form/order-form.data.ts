@@ -71,12 +71,7 @@ export const TYPE_LEGEND = {
   ['bifocal']: 'Bifocal',
 };
 
-export const COLOR_VALUES = [
-  'white',
-  'photochromatic',
-  'transitions',
-  'polarized',
-];
+export const COLOR_VALUES = ['white', 'photochromatic', 'polarized'];
 
 export const COLOR_LEGEND = {
   white: 'Branca',

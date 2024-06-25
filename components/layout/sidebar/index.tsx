@@ -35,7 +35,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpenMenu }) => {
       alignItems="flex-start"
       color={colors.foreground}
       justifyContent="space-between"
-      background={colors.secondary}
+      background={colors.footerFont}
       width={['100vw', '100vw', '17rem']}
       position={['fixed', 'fixed', 'static']}
       display={[

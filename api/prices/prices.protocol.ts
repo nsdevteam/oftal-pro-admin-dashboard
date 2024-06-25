@@ -1,3 +1,3 @@
 import { IUserPrices } from '../../interface';
 
-export type TGetPrices = (docId: string) => Promise<IUserPrices>;
+// export type TGetPrices = (docId: string) => Promise<IUserPrices>;

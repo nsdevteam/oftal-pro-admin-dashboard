@@ -43,7 +43,7 @@ const ResetPasswordPage: FC = () => (
           color="textInverted"
           placeholder="johndoe@oftalpro.com"
           nFocus={{
-            border: '1px solid #439ACC',
+            border: '1px solid #A6A6A6',
           }}
         />
       </Box>

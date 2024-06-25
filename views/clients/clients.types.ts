@@ -1,6 +1,6 @@
 import { WithUid } from 'burnbase/firestore';
 
-import { IClient } from '../../interface';
+import { IClient, IUserPrices } from '../../interface';
 
 export interface IClientForm extends IClient {
   password: string;
@@ -10,6 +10,7 @@ export interface IClientForm extends IClient {
 export interface ClientFormProps {
   closeForm: () => void;
   doc: WithUid<IClient> | null;
+  prices: ReadonlyArray<WithUid<IUserPrices>>;
 }
 
 export interface ClientTableProps {

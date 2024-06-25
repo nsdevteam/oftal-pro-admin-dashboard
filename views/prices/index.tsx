@@ -2,30 +2,25 @@ import { WithUid } from 'burnbase/firestore';
 import { FC, useEffect, useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 
-import getAllClients from '../../api/clients/get-all-clients';
-import { getPrices } from '../../api/prices';
+import getPrices from '../../api/prices/get-prices';
 import { Box, Button, Input, Typography } from '../../elements';
-import { IClient, IUserPrices } from '../../interface';
-import ClientForm from './client-form';
-import OrderTable from './clients-table';
+import { IUserPrices } from '../../interface';
+import PricesForm from './prices-form';
+import PricesTable from './prices-table';
 
-const Clients: FC = () => {
+const Prices: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [filterClients, setFilterClients] = useState('');
-  const [clients, setClients] = useState<ReadonlyArray<WithUid<IClient>>>([]);
-  const [selectedDoc, setSelectedDoc] = useState<WithUid<IClient> | null>(null);
+  const [filterPrices, setFilterPrices] = useState('');
+
+  const [selectedDoc, setSelectedDoc] = useState<WithUid<IUserPrices> | null>(
+    null
+  );
 
   const [prices, setPrices] = useState<ReadonlyArray<WithUid<IUserPrices>>>([]);
   useEffect(() => {
     getPrices()
       .then(setPrices)
-      .finally(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
-    getAllClients()
-      .then(setClients)
       .finally(() => setLoading(false));
   }, []);
 
@@ -65,45 +60,38 @@ const Clients: FC = () => {
                 // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
                 type="search"
-                value={filterClients}
+                value={filterPrices}
                 name="search"
                 mr={['0', 'S']}
                 ml={['0', 'S']}
                 borderRadius="M"
                 backgroundColor="transparent"
                 placeholder="Procurar por pedidos..."
-                onChange={(e) => setFilterClients(e.target.value)}
+                onChange={(e) => setFilterPrices(e.target.value)}
               />
             </Box>
           </Box>
           <Button mt="L" disabled={loading} onClick={() => setOpen(true)}>
-            <Typography as="span">Adicionar Cliente</Typography>
+            <Typography as="span">Adicionar Preço</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />
             </Typography>
           </Button>
         </Box>
-        <OrderTable
+        <PricesTable
           setSelectedDoc={setSelectedDoc}
-          data={clients.filter(({ fullName, email }) => {
-            if (
-              filterClients &&
-              !fullName.includes(filterClients) &&
-              !email.includes(filterClients)
-            ) {
-              return false;
-            }
+          data={prices.filter(({ name }) => {
+            if (filterPrices && !name.includes(filterPrices)) return false;
 
             return true;
           })}
         />
       </Box>
       <Box p="0.5rem" display="flex" justifyContent="space-between">
-        <Typography as="h4">Total de resultados: {clients.length}</Typography>
+        <Typography as="h4">Total de resultados: {prices.length}</Typography>
       </Box>
       {(isOpen || selectedDoc) && (
-        <ClientForm
-          prices={prices}
+        <PricesForm
           doc={selectedDoc}
           closeForm={() => {
             setOpen(false);
@@ -115,4 +103,4 @@ const Clients: FC = () => {
   );
 };
 
-export default Clients;
+export default Prices;

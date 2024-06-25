@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { COLOR_LEGEND } from './../views/orders/order-form/order-form.data';
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IEmptyObject {}
 
@@ -40,6 +42,7 @@ export interface IAdmin {
 
 export interface IClient {
   email: string;
+  priceId: string;
   fullName: string;
   createdAt?: number;
   lastLoginAt?: number;
@@ -89,6 +92,11 @@ export interface TableProps {
 }
 
 export interface IUserPrices {
+  name: string;
+  description?: string;
   extra: Record<string, number>;
-  lens: Record<string, ReadonlyArray<number | null>>;
+  lens: Record<
+    keyof typeof COLOR_LEGEND,
+    Record<string, ReadonlyArray<number | null>>
+  >;
 }
