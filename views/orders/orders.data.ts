@@ -111,11 +111,6 @@ export const REFRACTIVE_VALUES: Record<
     '1.67': TYPE_VALUES.slice(0, -1),
     '1.67 UV420 Blue Cut': TYPE_VALUES.slice(0, -1),
   },
-  transitions: {
-    '1.5': TYPE_VALUES.slice(0, -1),
-    '1.6': TYPE_VALUES.slice(0, -1),
-    '1.67': TYPE_VALUES.slice(0, -1),
-  },
   polarised: {
     '1.5': TYPE_VALUES.slice(0, -1),
     '1.56': TYPE_VALUES.slice(0, -1),

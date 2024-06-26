@@ -69,7 +69,7 @@ export interface IOrder {
   recipes?: ReadonlyArray<string>;
   refractiveIndex: string | undefined;
   treatment: 'HMC' | 'SHMC' | 'UC' | 'HC';
-  color: 'white' | 'photochromatic' | 'transitions' | 'polarized';
+  color: 'white' | 'photochromatic' | 'polarized';
   type:
     | 'single-focal'
     | 'boost'
