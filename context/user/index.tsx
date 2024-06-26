@@ -11,10 +11,9 @@ import React, {
 } from 'react';
 import toast from 'react-hot-toast';
 
-import getPrices from '../../api/prices/get-prices';
 import { getUser } from '../../api/user';
 import useRerender from '../../hooks/use-rerender';
-import { IClient, IUserPrices } from '../../interface';
+import { IClient } from '../../interface';
 import { IUserContext } from './user.types';
 
 const userContext = createContext<IUserContext>({} as IUserContext);
@@ -24,7 +23,7 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
   const { rerender: forceVerifyLogin, renderer } = useRerender();
   const [loading, setLoading] = useState<boolean>(true);
   const [userData, setUserData] = useState<IClient | null>(null);
-  const [userPrices, setUserPrices] = useState<IUserPrices | null>(null);
+
   const [userAuth, setUserAuth] = useState<User | null>(null);
 
   const handleSetUserAuth = useCallback(async (auth: User | null) => {
@@ -32,15 +31,6 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
     setUserAuth(auth);
     setLoading(false);
   }, []);
-
-  useEffect(() => {
-    if (userData)
-      (async () => {
-        const prices = await getPrices(userData.clientId);
-
-        setUserPrices(prices);
-      })();
-  }, [userData]);
 
   useEffect(() => {
     setLoading(true);
@@ -52,7 +42,6 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
     userAuth,
     userData,
     forceVerifyLogin,
-    prices: userPrices,
   };
 
   return <Provider value={defaultData}>{children}</Provider>;
