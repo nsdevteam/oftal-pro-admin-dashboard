@@ -53,6 +53,7 @@ export interface IClient {
 
 export interface IOrder {
   ref: string;
+  total: number;
   leftEye?: IEye;
   rightEye?: IEye;
   prisma: boolean;

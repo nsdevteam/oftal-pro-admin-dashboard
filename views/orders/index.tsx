@@ -1,7 +1,7 @@
 import { WithUid } from 'burnbase/firestore';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { CSVLink } from 'react-csv';
-import { FiSearch } from 'react-icons/fi';
+import { FiSearch, FiX } from 'react-icons/fi';
 import { RiFileExcel2Line } from 'react-icons/ri';
 
 import getAllOrders from '../../api/orders/get-all-orders';
@@ -13,6 +13,7 @@ import OrderTable from './orders-table';
 
 const Orders: FC = () => {
   const [filter, setFilter] = useState('');
+  const [dateFilter, setDateFilter] = useState<string>();
   const [loading, setLoading] = useState<boolean>(true);
   const [orders, setOrders] = useState<ReadonlyArray<WithUid<IOrder>>>([]);
   const [selectDoc, setSelectedDoc] = useState<WithUid<IOrder> | null>(null);
@@ -25,14 +26,17 @@ const Orders: FC = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const filterOrder = orders.filter(({ ref, type }) => {
-    if (
-      filter &&
-      !ref.includes(filter) &&
-      !TYPE_LEGEND[type].includes(filter)
-    ) {
-      return false;
-    }
+  const filterOrder = orders.filter(({ ref, type, createdAt }) => {
+    const notValidText =
+      filter && !ref.includes(filter) && !TYPE_LEGEND[type].includes(filter);
+
+    const notValidDate =
+      dateFilter &&
+      createdAt &&
+      new Date(dateFilter).toLocaleDateString() !==
+        new Date(createdAt).toLocaleDateString();
+
+    if (notValidText || notValidDate) return false;
 
     return true;
   });
@@ -91,6 +95,7 @@ const Orders: FC = () => {
     >
       <Box display="flex" gap="2rem" flexDirection="column">
         <Box
+          gap="1rem"
           width="100%"
           display="flex"
           padding="0.5rem"
@@ -99,6 +104,7 @@ const Orders: FC = () => {
           justifyContent="space-between"
         >
           <Box
+            flex="1"
             width="100%"
             display="flex"
             mr={['0', 'S']}
@@ -115,8 +121,10 @@ const Orders: FC = () => {
             <Box display="flex" flexDirection="column" flex="1">
               <Input
                 p="L"
+                flex="1"
                 // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
+                width="100%"
                 type="search"
                 value={filter}
                 name="search"
@@ -129,14 +137,34 @@ const Orders: FC = () => {
               />
             </Box>
           </Box>
-          <CSVLink filename="orders.csv" data={csvData}>
-            <Button mt="L" disabled={loading}>
-              <Typography as="span">Exportar</Typography>
-              <Typography as="span" ml="M">
-                <RiFileExcel2Line size={18} color="#FFF" />
-              </Typography>
-            </Button>
-          </CSVLink>
+          <Box display="flex" alignItems="center" gap="1rem">
+            <Input
+              name="date"
+              type="date"
+              width="100%"
+              mr={['0', 'S']}
+              ml={['0', 'S']}
+              borderRadius="M"
+              value={dateFilter}
+              border="1px solid #E4E4E7"
+              backgroundColor="transparent"
+              placeholder="Procurar por encomendas..."
+              onChange={(e) => setDateFilter(e.target.value)}
+            />
+            {dateFilter && (
+              <Button bg="#FC6363" onClick={() => setDateFilter(undefined)}>
+                <FiX />
+              </Button>
+            )}
+            <CSVLink filename="orders.csv" data={csvData}>
+              <Button disabled={loading}>
+                <Typography as="span">Exportar</Typography>
+                <Typography as="span" ml="M">
+                  <RiFileExcel2Line size={18} color="#FFF" />
+                </Typography>
+              </Button>
+            </CSVLink>
+          </Box>
         </Box>
         <OrderTable setSelectedDoc={setSelectedDoc} data={filterOrder} />
       </Box>
