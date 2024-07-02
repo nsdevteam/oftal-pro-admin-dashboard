@@ -5,7 +5,7 @@ import { TRowData } from '../../interface';
 import { OrdersTableProps } from './orders.types';
 
 const HEADINGS: Record<string, string> = {
-  ref: 'Ref/Nome de pacicente',
+  ref: 'Referência do pedido',
   type: 'Tipo',
   refractiveIndex: 'Índice de refração',
   color: 'Cor',
@@ -23,8 +23,20 @@ const OrderTable: FC<OrdersTableProps> = ({ data, setSelectedDoc }) => (
       onSelect={(index) => setSelectedDoc(data[index])}
       data={
         data.map(
-          ({ ref, type, color, leftEye, rightEye, refractiveIndex }) => ({
+          ({
             ref,
+            type,
+            color,
+            leftEye,
+            rightEye,
+            clientId,
+            refractiveIndex,
+            createdAt,
+          }) => ({
+            ref: `${new Date(createdAt!)
+              .toISOString()
+              .split('T')[0]
+              .replaceAll('-', '')}-${clientId}-${ref}`,
             type,
             refractiveIndex,
             color,

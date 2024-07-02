@@ -44,7 +44,7 @@ const Orders: FC = () => {
   const csvData = useMemo(
     () => [
       [
-        'Ref/Nome de pacitente',
+        'Referência do pedido',
         'Tipo',
         'Índice de refração',
         'Tratamento',
@@ -57,7 +57,10 @@ const Orders: FC = () => {
       ],
       ...filterOrder.flatMap((order) => [
         [
-          order.ref,
+          `${new Date(order.createdAt!)
+            .toISOString()
+            .split('T')[0]
+            .replaceAll('-', '')}-${order.clientId}-${order.ref}`,
           TYPE_LEGEND[order.type],
           order.refractiveIndex,
           COLOR_LEGEND[order.color],
@@ -70,7 +73,10 @@ const Orders: FC = () => {
           order.rightEye?.addition ?? '--',
         ],
         [
-          order.ref,
+          `${new Date(order.createdAt!)
+            .toISOString()
+            .split('T')[0]
+            .replaceAll('-', '')}-${order.clientId}-${order.ref}`,
           TYPE_LEGEND[order.type],
           order.refractiveIndex,
           order.treatment,
