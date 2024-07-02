@@ -12,7 +12,7 @@ const Layout: FC<LayoutProps> = ({ pageTitle = '', children }) => {
   const { push } = useRouter();
   const { userAuth, loading } = useUser();
   const [isOpenMenu, setOpenMenu] = useState(false);
-  const title = `${pageTitle} | Dashboard do cliente`;
+  const title = `${pageTitle} | Dashboard do administrador`;
 
   useEffect(() => {
     if (!userAuth && !loading) push('/');
