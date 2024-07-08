@@ -9,7 +9,7 @@ const TreatmentDropdownField: FC<{ isEditable: boolean }> = ({
   isEditable,
 }) => {
   const defaultValue = 'HMC';
-  const label = 'Tratamento';
+  const label = 'Tratamento*';
   const values = TREATMENT_VALUES;
 
   const { control, setValue } = useFormContext<IOrder>();

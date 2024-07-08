@@ -99,7 +99,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
             >
               <Box gridColumn="2 span">
                 <DropdownField
-                  label="Tipo"
+                  label="Tipo*"
                   name="type"
                   disabled={!isEditable}
                   values={TYPE_VALUES}
@@ -112,7 +112,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
               </Box>
               <Box gridColumn="2 span">
                 <DropdownField
-                  label="Cor"
+                  label="Cor*"
                   name="color"
                   disabled={!isEditable}
                   values={COLOR_VALUES}

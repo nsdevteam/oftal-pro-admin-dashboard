@@ -20,7 +20,7 @@ const DropdownRefractiveField: FC<{ isEditable: boolean }> = ({
   return (
     <DropdownField
       name="refractiveIndex"
-      label="Índice de refracção"
+      label="Índice de refracção*"
       disabled={!isEditable}
       values={Object.entries(REFRACTIVE_VALUES[color] ?? {})
         .filter(([, allowedList]) => allowedList.includes(type))

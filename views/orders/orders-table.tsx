@@ -36,7 +36,7 @@ const OrderTable: FC<OrdersTableProps> = ({ data, setSelectedDoc }) => (
             ref: `${new Date(createdAt!)
               .toISOString()
               .split('T')[0]
-              .replaceAll('-', '')}-${clientId}-${ref}`,
+              .replaceAll('-', '')}-${clientId}-${ref || createdAt}`,
             type,
             refractiveIndex,
             color,
