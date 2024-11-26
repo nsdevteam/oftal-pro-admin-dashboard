@@ -1,4 +1,3 @@
-import { loginWithEmailAndPassword } from 'burnbase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
@@ -11,6 +10,8 @@ import LogoSVG from '../../components/svg/logo';
 import { RoutePaths, RoutesEnum } from '../../constants/routes';
 import { useUser } from '../../context/user';
 import { Box, Button, Input, Typography } from '../../elements';
+import styles from '../../styles/auth/auth.module.css';
+import { loginWithEmailAndPassword } from '../../utils/helpers';
 
 const Home: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const Home: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { push } = useRouter();
-
+     
   const {
     register,
     reset,
@@ -33,10 +34,8 @@ const Home: FC = () => {
     try {
       const { email, password } = getValues();
 
-      await loginWithEmailAndPassword(email, password, {
-        firestoreCollectionName: 'admin',
-      }).then((credential) =>
-        updateUser(credential.user.uid, { lastLoginAt: Date.now() })
+      await loginWithEmailAndPassword(email, password).then((credential:any) =>
+        updateUser(credential.uid, { lastLoginAt: Date.now() })
       );
 
       forceVerifyLogin();
@@ -47,7 +46,7 @@ const Home: FC = () => {
   };
 
   useEffect(() => {
-    if (userAuth && !loading) push('/orders');
+    if (userAuth && !loading) push('/cart');
   }, [userAuth, loading]);
 
   const togglePasswordVisibility = () => {
@@ -71,12 +70,14 @@ const Home: FC = () => {
       justifyContent="center"
       alignItems="center"
       alignContent="center"
+      className={`${styles?.authWrapper} page-form`}        
     >
+      <div className={`${styles?.contentWrapper}`}>
       <Box
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        alignItems="center"
+        alignItems="center"   
       >
         <LogoSVG />
         <Typography m="L" fontSize={['0.5rem', '1rem']}>
@@ -89,6 +90,7 @@ const Home: FC = () => {
             fontSize={['0.5rem', '1rem']}
             textAlign="left"
             py="0.5rem"
+             className='label'
           >
             Email
           </Typography>
@@ -104,7 +106,7 @@ const Home: FC = () => {
             color="textInverted"
             placeholder="johndoe@oftalpro.com"
             nFocus={{
-              border: '1px solid #A6A6A6',
+              border: '1px solid #50ADE5',
             }}
             {...register('email', {
               required: 'Campo email é obrigatório',
@@ -125,6 +127,7 @@ const Home: FC = () => {
             fontSize={['0.5rem', '1rem']}
             textAlign="left"
             py="0.5rem"
+            className='label'
           >
             Senha
           </Typography>
@@ -140,6 +143,7 @@ const Home: FC = () => {
             overflow="hidden"
             alignItems="center"
             justifyContent="stretch"
+            className='input-wrapper'
           >
             <Input
               width={['18rem', '30rem']}
@@ -154,7 +158,7 @@ const Home: FC = () => {
               minWidth={['100%', '10rem']}
               placeholder="***************"
               nFocus={{
-                border: '1px solid #A6A6A6',
+                border: '1px solid #50ADE5',
               }}
               {...register('password', {
                 required: 'Campo palavra-passe é obrigatório',
@@ -178,15 +182,10 @@ const Home: FC = () => {
             </Typography>
           )}
         </Box>
-        <Typography
-          fontSize={['0.5rem', '1rem']}
-          p={['0.5rem', 'L']}
-          my={['0.5rem', 'L']}
-          textAlign="center"
-        >
-          Próximo passo
-        </Typography>
-        <Button width="100%">Entrar &rarr;</Button>
+        <div>
+        <Button className={`${styles?.authBtn}`} width="100%">Entrar &rarr;</Button>
+        </div>
+
       </form>
       <Box
         as="div"
@@ -196,10 +195,21 @@ const Home: FC = () => {
         alignItems="center"
       >
         <Typography padding="0.5rem">Esqueceu a sua senha?</Typography>
-        <Link href={RoutePaths[RoutesEnum.ResetPassword]}>
-          Solicitar uma nova senha.
+        <Link className={`${styles?.optionalLink}`} href={RoutePaths[RoutesEnum.ResetPassword]}>
+          Solicitar uma nova senha.      
         </Link>
       </Box>
+      </div>
+      {/* <!-- Powered By Company --> */}
+      <div>
+        <a className={styles?.poweredByLink} href='https://www.nsdevteam.com' target='_blank'>
+          <span className="nsdev-copyright"></span>   
+        </a>   
+      </div>
+      {/* <!-- Whatsapp Support --> */}
+      <a href="https://wa.me/244926976310?text=Se%20precisar%20de%20ajuda%20ou%20um%20suporte%20urgente%2C%20entra%20em%20contacto%20via%20WhatsApp%20ou%20liga%20no%20nosso%20número%20de%20telefone%20926%20976%20220"   className="wa-float" target="_blank">
+      <span className='wa-icon'></span>    
+      </a>
     </Box>
   );
 };
