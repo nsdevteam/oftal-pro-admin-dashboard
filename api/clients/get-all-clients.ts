@@ -1,8 +1,6 @@
-import { getAllData } from 'burnbase/firestore';
-
-import { IClient } from '../../interface';
+import { getAllData } from '../../utils/helpers';
 import { clientsCollectionName } from './clients.utils';
 
-const getAllClients = getAllData<IClient>(clientsCollectionName);
+const getAllClients = getAllData(clientsCollectionName);
 
-export default getAllClients;
+export default getAllClients;    

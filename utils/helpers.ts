@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, updateDoc, where,getFirestore,setDoc } from "firebase/firestore";
 import { db,storage } from "../api/init";
 import {
     getStorage,
@@ -7,11 +7,12 @@ import {
     getDownloadURL,
     deleteObject
   } from "firebase/storage";    
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, UserCredential, createUserWithEmailAndPassword } from "firebase/auth";
 
-const ordersDatabase = collection(db, "orders");
-const clientsDatabase = collection(db, "orders");
-const pricesDatabase = collection(db, "orders");
+const ordersDatabase = collection(db, 'orders');
+const clientsDatabase = collection(db, 'client');
+const pricesDatabase = collection(db, 'prices');
+const adminsDatabase = collection(db, 'admin');   
 
 async function addFile(file: File,folder:string,misc?: {prefix:string;suffix:string;}): Promise<string> {
     if (!file) throw new Error("No file provided");
@@ -233,11 +234,46 @@ async function downloadFirebaseFile(storageUrl: string, filename?: string): Prom
     console.error('Error downloading file:', error);
   }
 }
+export const createUser = async (
+  email: string,
+  password: string,
+  options: {
+    hasInstance: boolean;
+    userInfo: Record<string, any>; // Additional user information
+    userCollectionName: string; // Firestore collection name
+  }
+): Promise<UserCredential> => {
+  const { hasInstance, userInfo, userCollectionName } = options;
+
+  try {
+    const auth = getAuth();
+    const db = getFirestore();
+
+    // Step 1: Create the user in Firebase Authentication
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    // Step 2: Save user info to Firestore
+    const userDocRef = doc(db, userCollectionName, userCredential.user.uid);
+    await setDoc(userDocRef, {
+      email: userCredential.user.email,
+      hasInstance,
+      createdAt: new Date().toISOString(),
+      ...userInfo, // Merge additional user info
+    });
+
+    console.log("User created successfully and data saved:", userCredential.user.uid);
+    return userCredential;
+  } catch (error: any) {
+    console.error("Error creating user:", error.message);
+    throw error;
+  }
+};
 
 export {
     clientsDatabase,
     ordersDatabase,
     pricesDatabase,
+    adminsDatabase,   
     getAllData,   
     getDocument,
     updateDocument,    

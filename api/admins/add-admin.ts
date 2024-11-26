@@ -1,10 +1,10 @@
-import { addDocument } from 'burnbase/firestore';
+import { addDoc } from 'firebase/firestore';
 
 import { IAdmin } from '../../interface';
-import { adminsCollectionName } from './admins.utils';
+import { adminsDatabase } from '../../utils/helpers';
 
 const addAdmin = async (admin: IAdmin): Promise<void> => {
-  await addDocument(adminsCollectionName, admin);
+  await addDoc(adminsDatabase, admin);
 };
 
 export default addAdmin;

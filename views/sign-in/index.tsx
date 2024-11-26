@@ -46,7 +46,7 @@ const Home: FC = () => {
   };
 
   useEffect(() => {
-    if (userAuth && !loading) push('/cart');
+    if (userAuth && !loading) push('/orders');
   }, [userAuth, loading]);
 
   const togglePasswordVisibility = () => {

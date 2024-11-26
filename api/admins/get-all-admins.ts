@@ -1,8 +1,6 @@
-import { getAllData } from 'burnbase/firestore';
-
-import { IAdmin } from '../../interface';
+import { getAllData } from '../../utils/helpers';
 import { adminsCollectionName } from './admins.utils';
 
-const getAllAdmins = getAllData<IAdmin>(adminsCollectionName);
+const getAllAdmins = getAllData(adminsCollectionName);
 
-export default getAllAdmins;
+export default getAllAdmins;         

@@ -4,12 +4,13 @@ import { CSVLink } from 'react-csv';
 import { FiSearch, FiX } from 'react-icons/fi';
 import { RiFileExcel2Line } from 'react-icons/ri';
 
-import getAllOrders from '../../api/orders/get-all-orders';
 import { Box, Button, Input, Typography } from '../../elements';
 import { IOrder, orderStatusEnum } from '../../interface';
 import OrderForm from './order-form';
 import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
 import OrderTable from './orders-table';
+import { getAllData } from '../../utils/helpers';
+import { orderCollectionName } from '../../api/orders/orders.utis';
 
 const Orders: FC = () => {
   const [filter, setFilter] = useState('');
@@ -19,14 +20,16 @@ const Orders: FC = () => {
   const [selectDoc, setSelectedDoc] = useState<WithUid<IOrder> | null>(null);
 
   useEffect(() => {
-    getAllOrders({
-      conditions: [['status', '==', orderStatusEnum.Encomendado]],
-    })
-      .then(setOrders)
-      .finally(() => setLoading(false));
+    getCompletedOrders().catch((error)=>console.error("Failed to retrieve completed orders ::: ",error));    
   }, []);
 
-  const filterOrder = orders.filter(({ ref, type, createdAt }) => {
+  const getCompletedOrders = async ()=>{
+    const _data:any = await getAllData(orderCollectionName,[{field:'status', operator:'==', value:orderStatusEnum.Encomendado}])();
+    setOrders(_data);    
+    setLoading(false);   
+  }
+   
+  const filterOrder = orders?.filter(({ ref, type, createdAt }) => {   
     const notValidText =
       filter && !ref.includes(filter) && !TYPE_LEGEND[type].includes(filter);
 

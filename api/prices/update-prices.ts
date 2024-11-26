@@ -1,6 +1,7 @@
-import { updateDocument } from 'burnbase/firestore';
+
 
 import { IUserPrices } from '../../interface';
+import { updateDocument } from '../../utils/helpers';
 import { pricesCollectionName } from './prices.utils';
 
 const updatePrices = async (

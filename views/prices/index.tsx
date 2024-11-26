@@ -15,7 +15,7 @@ const Prices: FC = () => {
 
   const [selectedDoc, setSelectedDoc] = useState<WithUid<IUserPrices> | null>(
     null
-  );
+  );   
 
   const [prices, setPrices] = useState<ReadonlyArray<WithUid<IUserPrices>>>([]);
   useEffect(() => {

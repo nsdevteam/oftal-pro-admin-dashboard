@@ -1,10 +1,10 @@
-import { updateDocument } from 'burnbase/firestore';
 
-import { IClient } from '../../interface';
+
+import { updateDocument } from '../../utils/helpers';
 import { TUpdateUser } from './user.protocol';
 import { userCollectionName } from './user.utils';
 
 const updateUser: TUpdateUser = (uid, docData) =>
-  updateDocument<IClient>(userCollectionName, uid, docData);
+  updateDocument(userCollectionName, uid, docData);
 
-export default updateUser;
+export default updateUser;     
