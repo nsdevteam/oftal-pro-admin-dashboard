@@ -22,7 +22,7 @@ const Admins: FC = () => {
   return (
     <Box
       flex="1"
-      display="flex"
+      display="flex"     
       flexDirection="column"
       justifyContent="space-between"
     >
@@ -34,38 +34,7 @@ const Admins: FC = () => {
           flexDirection="column"
           alignItems="flex-start"
           justifyContent="space-between"
-        >
-          <Box
-            width="100%"
-            display="flex"
-            mr={['0', 'S']}
-            borderRadius="M"
-            overflow="hidden"
-            alignItems="center"
-            color="textInverted"
-            border="1px solid #E4E4E7"
-            justifyContent="flex-start"
-          >
-            <Box cursor="pointer" padding="0.5rem" paddingRight="0">
-              <FiSearch size={24} />
-            </Box>
-            <Box display="flex" flexDirection="column" flex="1">
-              <Input
-                p="L"
-                // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus
-                type="search"
-                value={filterAdmins}
-                name="search"
-                mr={['0', 'S']}
-                ml={['0', 'S']}
-                borderRadius="M"
-                backgroundColor="transparent"
-                placeholder="Procurar por administrador..."
-                onChange={(e) => setFilterAdmins(e.target.value)}
-              />
-            </Box>
-          </Box>
+        >   
           <Button mt="L" disabled={loading} onClick={() => setOpen(true)}>
             <Typography as="span">Adicionar Administrador</Typography>
             <Typography as="span" ml="M">

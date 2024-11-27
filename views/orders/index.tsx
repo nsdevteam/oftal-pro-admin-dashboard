@@ -124,40 +124,6 @@ const Orders: FC = () => {
           alignItems="flex-start"
           justifyContent="space-between"
         >
-          <Box
-            flex="1"
-            width="100%"
-            display="flex"
-            mr={['0', 'S']}
-            borderRadius="M"
-            overflow="hidden"
-            alignItems="center"
-            color="textInverted"
-            border="1px solid #E4E4E7"
-            justifyContent="flex-start"
-          >
-            <Box cursor="pointer" padding="0.5rem" paddingRight="0">
-              <FiSearch size={24} />
-            </Box>
-            <Box display="flex" flexDirection="column" flex="1">
-              <Input
-                p="L"
-                flex="1"
-                // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus
-                width="100%"
-                type="search"
-                value={filter}
-                name="search"
-                mr={['0', 'S']}
-                ml={['0', 'S']}
-                borderRadius="M"
-                backgroundColor="transparent"
-                placeholder="Procurar por encomendas..."
-                onChange={(e) => setFilter(e.target.value)}
-              />
-            </Box>
-          </Box>
           <Box className='order-options' display="flex" alignItems="center" gap="1rem">
             <Input
               name="date"
@@ -188,10 +154,7 @@ const Orders: FC = () => {
           </Box>
         </Box>
         <OrderTable setSelectedDoc={setSelectedDoc} data={filterOrder} />
-      </Box>
-      <Box p="0.5rem" display="flex" justifyContent="space-between">
-        <Typography as="h4">Total de resultados: {orders.length}</Typography>
-      </Box>
+      </Box>  
       {selectDoc && (
         <OrderForm
           doc={selectDoc}
