@@ -13,6 +13,7 @@ const Header: FC<HeaderProps> = ({ setOpenMenu }) => (
     display="flex"
     alignItems="center"
     justifyContent="space-between"
+    className="dash-header"
   >
     <Box
       cursor="pointer"

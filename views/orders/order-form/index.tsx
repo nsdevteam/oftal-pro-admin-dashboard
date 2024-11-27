@@ -48,6 +48,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
         alignItems="center"
         p={['1rem', '2rem']}
         justifyContent="center"
+        className='order-form'
       >
         <Box
           bg="white"
@@ -83,7 +84,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
           px={['1rem', '1rem', '4rem']}
           onClick={(e) => e.stopPropagation()}
         >
-          <Typography>{doc ? 'Atualizar' : 'Novo'} Pedido</Typography>
+          <Typography className='page-title'>{doc ? 'Atualizar' : 'Novo'} Pedido</Typography>
           <Box
             display="grid"
             rowGap="1.25rem"
@@ -138,6 +139,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
                   max="80"
                   type="number"
                   disabled={!isEditable}
+                  className='c-input'
                   borderRadius="0.8rem"
                   border="1px solid #CDCDCD"
                   {...form.register('diameter', {
@@ -182,6 +184,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
                 <Input
                   disabled={!isEditable}
                   borderRadius="0.8rem"
+                  className='c-input'
                   border="1px solid #CDCDCD"
                   placeholder="Firmino Miguel"
                   {...form.register('ref', {
@@ -206,6 +209,8 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
                     onChange={(files) => form.setValue('recipe', files)}
                     disabled={true}
                   />
+                   {/*@ts-ignore*/}
+                   {doc?.recipe?.length > 0 && <button onClick={()=>downloadFirebaseFile(doc?.recipe || '')} className='c-download-file-btn'><span className='link'>Descarregar <span className='icon'></span></span></button>}
                 </Box>
                 <Box display="flex" flexDirection="column" gap="1rem">
                   <Typography>
@@ -221,6 +226,8 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
                     onChange={(files) => form.setValue('precal', files)}
                     disabled={true}
                   />
+                   {/*@ts-ignore*/}
+                   {doc?.precal?.length > 0 && <button onClick={()=>downloadFirebaseFile(doc?.precal || '')} className='c-download-file-btn'><span className='link'>Descarregar <span className='icon'></span></span></button>}    
                 </Box>
               </Box>
               <Box display="flex" flexDirection="column" gap="1rem">

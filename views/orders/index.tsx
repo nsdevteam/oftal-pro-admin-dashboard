@@ -158,7 +158,7 @@ const Orders: FC = () => {
               />
             </Box>
           </Box>
-          <Box display="flex" alignItems="center" gap="1rem">
+          <Box className='order-options' display="flex" alignItems="center" gap="1rem">
             <Input
               name="date"
               type="date"
@@ -178,7 +178,7 @@ const Orders: FC = () => {
               </Button>
             )}
             <CSVLink filename="orders.csv" data={csvData}>
-              <Button disabled={loading}>
+              <Button className='option-btn' disabled={loading}>
                 <Typography as="span">Exportar</Typography>
                 <Typography as="span" ml="M">
                   <RiFileExcel2Line size={18} color="#FFF" />

@@ -22,6 +22,7 @@ const InputList: FC<InputListProps> = ({
       defaultValue={defaultValue}
       onBlur={(e) => onSelect(e.target.value)}
       cursor={disabled ? 'not-allowed' : 'pointer'}
+      className='c-input-list'
     />
   </Box>
 );
