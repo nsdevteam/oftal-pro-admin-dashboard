@@ -7,4 +7,5 @@ export interface IAdminForm extends IAdmin {
 
 export interface AdminFormProps {
   closeForm: () => void;
+  doc?:any;   
 }

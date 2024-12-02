@@ -33,7 +33,7 @@ const AdminsTable: React.FC<any> = ({
     []
   );
 
-  const getOrder = React.useCallback(
+  const getItem = React.useCallback(
     (id: string) => {
       return customData?.find((item:any) => item.id === id || item.uid === id) || {};
     },
@@ -42,9 +42,9 @@ const AdminsTable: React.FC<any> = ({
 
   const handleRowClick = React.useCallback(
     (params: any) => {
-      setSelectedDoc(getOrder(params?.row?.id || params?.row?.uid));
+      setSelectedDoc(getItem(params?.row?.id || params?.row?.uid));
     },
-    [getOrder, setSelectedDoc]
+    [getItem, setSelectedDoc]   
   );  
 
 
@@ -62,7 +62,7 @@ const AdminsTable: React.FC<any> = ({
           rowHeight={80}
           localeText={ptPT.components.MuiDataGrid.defaultProps.localeText}
           onRowClick={handleRowClick}     
-          onRowSelectionModelChange={(newRows)=>setSelectedList(newRows)}    
+          /* onRowSelectionModelChange={(newRows)=>setSelectedList(newRows)} */    
           rowSelectionModel={selectedList}    
           apiRef={apiRef}
         />

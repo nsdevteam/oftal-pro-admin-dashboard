@@ -22,6 +22,7 @@ import {
 import { OrderFormProps } from './order-form.types';
 import OrderFormSubmit from './order-form-submit';
 import TreatmentDropdownField from './treatment-dropdown-field';
+import { downloadFirebaseFile } from '../../../utils/helpers';
 
 const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
   const form = useForm<IOrder>({
@@ -66,8 +67,9 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
           justifyContent="center"
           border="1px solid #0002"
           nHover={{ borderColor: '#0005' }}
+          className='close-btn-wrapper'
         >
-          <Box fontSize="2rem" transform="scaleY(0.8)">
+          <Box className='close-btn' fontSize="2rem" transform="scaleY(0.8)">
             X
           </Box>
         </Box>
@@ -83,6 +85,7 @@ const OrderForm: FC<OrderFormProps> = ({ closeForm, doc, isEditable }) => {
           flexDirection="column"
           px={['1rem', '1rem', '4rem']}
           onClick={(e) => e.stopPropagation()}
+          className='content-wrapper'
         >
           <Typography className='page-title'>{doc ? 'Atualizar' : 'Novo'} Pedido</Typography>
           <Box

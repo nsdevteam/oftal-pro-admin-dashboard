@@ -24,6 +24,11 @@ const Prices: FC = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const handleItemSelect = (item:any)=>{
+      setSelectedDoc(item);
+      setOpen(true);
+  }
+
   return (
     <Box
       flex="1"
@@ -40,7 +45,7 @@ const Prices: FC = () => {
           alignItems="flex-start"
           justifyContent="space-between"
         >
-          <Button mt="L" disabled={loading} onClick={() => setOpen(true)}>
+          <Button className='add-item-btn' mt="L" disabled={loading} onClick={() => setOpen(true)}>
             <Typography as="span">Adicionar Preço</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />
@@ -48,17 +53,15 @@ const Prices: FC = () => {
           </Button>
         </Box>
         <PricesTable
-          setSelectedDoc={setSelectedDoc}
+          setSelectedDoc={handleItemSelect}
+          customData={prices}   
           data={prices.filter(({ name }) => {
             if (filterPrices && !name.includes(filterPrices)) return false;
 
             return true;
           })}
         />
-      </Box>
-      <Box p="0.5rem" display="flex" justifyContent="space-between">
-        <Typography as="h4">Total de resultados: {prices.length}</Typography>
-      </Box>
+      </Box>   
       {(isOpen || selectedDoc) && (
         <PricesForm
           doc={selectedDoc}

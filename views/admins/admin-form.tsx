@@ -7,11 +7,12 @@ import { Box, Button, Input, Typography } from '../../elements';
 import { AdminFormProps, IAdminForm } from './admin.types';
 import { createUser } from '../../utils/helpers';
 
-const AdminForm: FC<AdminFormProps> = ({ closeForm }) => {
+const AdminForm: FC<AdminFormProps> = ({ closeForm,doc }) => {
   const form = useForm<IAdminForm>({
     defaultValues: {
       fullName: '',
       email: '',
+      ...doc     
     },
   });
 
@@ -43,6 +44,7 @@ const AdminForm: FC<AdminFormProps> = ({ closeForm }) => {
       alignItems="center"
       p={['1rem', '2rem']}
       justifyContent="center"
+      className='page-form admin-form'
     >
       <Box
         bg="white"

@@ -25,7 +25,16 @@ const Orders: FC = () => {
 
   const getCompletedOrders = async ()=>{
     const _data:any = await getAllData(orderCollectionName,[{field:'status', operator:'==', value:orderStatusEnum.Encomendado}])();
-    setOrders(_data);    
+    const sortOrders = (a:any,b:any)=>{
+      if(a?.createdAt > b?.createdAt){
+        return 1;
+      }else if(a?.createdAt < b?.createdAt){
+        return -1;
+      }else{
+        return 0;
+      }
+    }
+    setOrders(_data?.sort(sortOrders).reverse());        
     setLoading(false);   
   }
    
@@ -135,7 +144,7 @@ const Orders: FC = () => {
               value={dateFilter}
               border="1px solid #E4E4E7"
               backgroundColor="transparent"
-              placeholder="Procurar por encomendas..."
+              className='date-input-filter'
               onChange={(e) => setDateFilter(e.target.value)}
             />
             {dateFilter && (
@@ -144,7 +153,7 @@ const Orders: FC = () => {
               </Button>
             )}
             <CSVLink filename="orders.csv" data={csvData}>
-              <Button className='option-btn' disabled={loading}>
+              <Button className='option-btn export-btn' disabled={loading}>
                 <Typography as="span">Exportar</Typography>
                 <Typography as="span" ml="M">
                   <RiFileExcel2Line size={18} color="#FFF" />
@@ -153,7 +162,7 @@ const Orders: FC = () => {
             </CSVLink>
           </Box>
         </Box>
-        <OrderTable setSelectedDoc={setSelectedDoc} data={filterOrder} />
+        <OrderTable customData={orders} setSelectedDoc={setSelectedDoc} data={filterOrder} />
       </Box>  
       {selectDoc && (
         <OrderForm

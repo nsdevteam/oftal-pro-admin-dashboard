@@ -153,7 +153,7 @@ const OrderTable: React.FC<OrdersTableProps> = ({
           rowHeight={80}
           localeText={ptPT.components.MuiDataGrid.defaultProps.localeText}
           onRowClick={handleRowClick}     
-          onRowSelectionModelChange={(newRows)=>setSelectedList(newRows)}    
+          /* onRowSelectionModelChange={(newRows)=>setSelectedList(newRows)}     */
           rowSelectionModel={selectedList}    
           apiRef={apiRef}
         />

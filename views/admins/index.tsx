@@ -12,12 +12,17 @@ const Admins: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [admins, setAdmins] = useState<ReadonlyArray<IAdmin>>([]);
   const [filterAdmins, setFilterAdmins] = useState('');
-
+  const [selectDoc, setSelectedDoc] = useState<any>(null);
   useEffect(() => {
     getAllAdmins()
       .then(setAdmins)
       .finally(() => setLoading(false));
   }, []);
+
+  const handleSelectItem = (item:any)=>{
+    setSelectedDoc(item);
+    /* setOpen(true);  */     
+  }
 
   return (
     <Box
@@ -35,8 +40,8 @@ const Admins: FC = () => {
           alignItems="flex-start"
           justifyContent="space-between"
         >   
-          <Button mt="L" disabled={loading} onClick={() => setOpen(true)}>
-            <Typography as="span">Adicionar Administrador</Typography>
+          <Button className='add-item-btn' mt="L" disabled={loading} onClick={() => setOpen(true)}>
+            <Typography  as="span">Adicionar Administrador</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />
             </Typography>
@@ -53,14 +58,12 @@ const Admins: FC = () => {
             }
 
             return true;
-          })}
+          })} 
+          setSelectedDoc={handleSelectItem}   
         />
-      </Box>
-      <Box p="0.5rem" display="flex" justifyContent="space-between">
-        <Typography as="h4">Total de resultados: {admins.length}</Typography>
-      </Box>
-      {isOpen && <AdminForm closeForm={() => setOpen(false)} />}
-    </Box>
+      </Box>   
+      {isOpen && <AdminForm doc={selectDoc} closeForm={() => setOpen(false)} />}
+    </Box>   
   );
 };
 

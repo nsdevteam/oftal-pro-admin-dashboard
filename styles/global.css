@@ -120,12 +120,17 @@
 /*Header CSS */
 .dash-header{
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+  background-color: #212121;
 }
 /*Header CSS */
 /*Sidebar CSS */
 .dash-sidebar{    
   box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.076);  
   z-index: 500;
+  background-color: #212121;
+}
+.dash-sidebar .list{
+
 }
 .dash-sidebar .list .listItem{
   transition: background-color 150ms ease-in-out;
@@ -253,8 +258,17 @@ transition: opacity 150ms ease-in-out;
  opacity: 0.5;
 }
 .order-form{
-  z-index: 500
+  z-index: 500;
 }
+.order-form .content-wrapper{
+  padding-top: 50px;   
+  padding-bottom: 50px;   
+  background-color: #fff;
+}
+.order-form .close-btn-wrapper{
+  z-index: 100;
+}
+
 .c-download-file-btn{
   background: none;
   border: none;
@@ -296,6 +310,30 @@ transition: opacity 150ms ease-in-out;
   height: 14px;
   width: 14px;
   margin-left: 10px;
+}
+.account-page .form-group {
+  width: 100%;
+  min-width: unset;  
+}
+.account-page .form-group > div {
+  width: 100%;
+}
+.account-page .form-group input{
+  width: 100%; 
+}
+.date-input-filter{
+  padding: 8px 12px;  
+}
+.order-options .export-btn{
+  background-color: #212121;  
+}
+.add-item-btn{
+  height: auto;
+  width: auto;
+  min-width: 150px;
+  padding: 8px 12px;   
+  background-color: #212121;  
+  border-radius: 4px;
 }
 
 @media screen and (max-width: 1024px) {

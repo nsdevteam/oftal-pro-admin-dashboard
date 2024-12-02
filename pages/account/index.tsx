@@ -9,7 +9,7 @@ const AccountPage: FC = () => (
       as="div"
       maxWidth="100%"
       height="90vh"
-      width="80vw"
+      width="80%"
       display="flex"
       flexDirection="column"
       justifyContent="flex-start"
@@ -31,7 +31,7 @@ const AccountPage: FC = () => (
         >
           <Box
             as="div"
-            width="100vw"
+            width="100%"
             display="flex"
             alignItems="flex-start"
             justifyContent="flex-start"
@@ -43,6 +43,7 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
               <Typography className='label' textAlign="left" padding="0.5rem">
                 Primeiro nome
@@ -63,6 +64,7 @@ const AccountPage: FC = () => (
                 nFocus={{
                   borderColor: '#A6A6A6',
                 }}
+                className='form-group'
               />
             </Box>
             <Box
@@ -72,6 +74,7 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
               <Typography className='label' textAlign="left" padding="0.5rem">
                 Sobrenome
@@ -100,6 +103,7 @@ const AccountPage: FC = () => (
             display="flex"
             alignItems="flex-start"
             justifyContent="flex-start"
+            width="100%"
           >
             <Box
               as="div"
@@ -108,6 +112,7 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
               <Typography className='label' textAlign="left" padding="0.5rem">
                 Endereço de email
@@ -137,6 +142,7 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
               <Typography className='label' textAlign="left" padding="0.5rem">
                 Número de telefone
@@ -165,6 +171,7 @@ const AccountPage: FC = () => (
             display="flex"
             alignItems="flex-start"
             justifyContent="flex-start"
+            width="100%"
           >
             <Box
               as="div"
@@ -173,6 +180,7 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
               <Typography className='label' textAlign="left" padding="0.5rem">
                 Data de criação de conta
@@ -202,6 +210,7 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
               <Typography className='label' textAlign="left" padding="0.5rem">
                 Última data de login
@@ -212,7 +221,6 @@ const AccountPage: FC = () => (
                 outline="none"
                 borderRadius="M"
                 border="1px solid #E4E4E7"
-                marginLeft="0.5rem"
                 color="textInverted"
                 mr={['NONE', 'S']}
                 ml={['NONE', 'S']}

@@ -7,7 +7,7 @@ import { getPrices } from '../../api/prices';
 import { Box, Button, Input, Typography } from '../../elements';
 import { IClient, IUserPrices } from '../../interface';
 import ClientForm from './client-form';
-import OrderTable from './clients-table';
+import ClientsTable from './clients-table';
 
 const Clients: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -29,6 +29,11 @@ const Clients: FC = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const handleItemSelect = (item:any)=>{
+    setSelectedDoc(item);
+    setOpen(true);
+  }
+
   return (
     <Box
       flex="1"
@@ -45,15 +50,16 @@ const Clients: FC = () => {
           alignItems="flex-start"
           justifyContent="space-between"
         >
-          <Button mt="L" disabled={loading} onClick={() => setOpen(true)}>
+          <Button className='add-item-btn' mt="L" disabled={loading} onClick={() => setOpen(true)}>
             <Typography as="span">Adicionar Cliente</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />
             </Typography>
           </Button>
         </Box>
-        <OrderTable
+        <ClientsTable
           setSelectedDoc={setSelectedDoc}
+          customData={clients}   
           data={clients.filter(({ fullName, email }) => {
             if (
               filterClients &&

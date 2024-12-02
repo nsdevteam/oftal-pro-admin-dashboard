@@ -83,6 +83,7 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm, doc, prices }) => {
         alignItems="center"
         p={['1rem', '2rem']}
         justifyContent="center"
+        className='page-form client-form'
       >
         <Box
           bg="white"
