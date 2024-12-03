@@ -1,4 +1,4 @@
-import { createUser } from 'burnbase/auth';
+
 import { FC, useState } from 'react';
 import {
   FormProvider,
@@ -14,6 +14,7 @@ import { Box, Button, Dropdown, Input, Typography } from '../../elements';
 import { CLIENT_TYPE_LEGEND } from './client.data';
 import ClientFormPrices from './client-prices';
 import { ClientFormProps, IClientForm } from './clients.types';
+import { createUser } from '../../utils/helpers';
 
 const ClientFormSelectType: FC = () => {
   const openState = useState(false);
@@ -82,6 +83,7 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm, doc, prices }) => {
         alignItems="center"
         p={['1rem', '2rem']}
         justifyContent="center"
+        className='page-form client-form'
       >
         <Box
           bg="white"

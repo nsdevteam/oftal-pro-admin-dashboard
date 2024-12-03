@@ -1,4 +1,3 @@
-import { createUser } from 'burnbase/auth';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -6,12 +5,14 @@ import toast from 'react-hot-toast';
 import { adminsCollectionName } from '../../api/admins/admins.utils';
 import { Box, Button, Input, Typography } from '../../elements';
 import { AdminFormProps, IAdminForm } from './admin.types';
+import { createUser } from '../../utils/helpers';
 
-const AdminForm: FC<AdminFormProps> = ({ closeForm }) => {
+const AdminForm: FC<AdminFormProps> = ({ closeForm,doc }) => {
   const form = useForm<IAdminForm>({
     defaultValues: {
       fullName: '',
       email: '',
+      ...doc     
     },
   });
 
@@ -43,6 +44,7 @@ const AdminForm: FC<AdminFormProps> = ({ closeForm }) => {
       alignItems="center"
       p={['1rem', '2rem']}
       justifyContent="center"
+      className='page-form admin-form'
     >
       <Box
         bg="white"

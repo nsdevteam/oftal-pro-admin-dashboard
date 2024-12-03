@@ -1,4 +1,7 @@
-import { init } from 'burnbase/app';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
@@ -9,4 +12,9 @@ export const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || '',
 };
 
-init(firebaseConfig);
+const app = initializeApp(firebaseConfig);      
+const auth = getAuth(app);
+const db = getFirestore(app); 
+const storage = getStorage(app); 
+
+export { auth,db,storage };       

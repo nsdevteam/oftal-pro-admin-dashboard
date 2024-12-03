@@ -1,10 +1,11 @@
-import { addDocument } from 'burnbase/firestore';
 
+
+import { addDoc } from 'firebase/firestore';
 import { IClient } from '../../interface';
-import { clientsCollectionName } from './clients.utils';
+import { clientsDatabase } from '../../utils/helpers';
 
 const addClient = async (client: IClient): Promise<void> => {
-  await addDocument(clientsCollectionName, {
+  await addDoc(clientsDatabase, {
     ...client,
     createdAt: Date.now(),
   });

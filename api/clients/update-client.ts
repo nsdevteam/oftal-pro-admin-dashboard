@@ -1,6 +1,6 @@
-import { updateDocument } from 'burnbase/firestore';
 
 import { IClient } from '../../interface';
+import { updateDocument } from '../../utils/helpers';
 import { clientsCollectionName } from './clients.utils';
 
 const addClient = async (

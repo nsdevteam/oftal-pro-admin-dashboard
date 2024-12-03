@@ -35,6 +35,7 @@ const Layout: FC<LayoutProps> = ({ pageTitle = '', children }) => {
             display="flex"
             overflowY="auto"
             flexDirection="column"
+            className='dashboard-main-view'
           >
             {children}
           </Box>

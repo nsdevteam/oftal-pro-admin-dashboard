@@ -1,10 +1,10 @@
-import { addDocument } from 'burnbase/firestore';
 
+import { addDoc } from 'firebase/firestore';
 import { IUserPrices } from '../../interface';
-import { pricesCollectionName } from './prices.utils';
+import { pricesDatabase } from '../../utils/helpers';
 
 const addPrices = async (prices: IUserPrices): Promise<void> => {
-  await addDocument(pricesCollectionName, {
+  await addDoc(pricesDatabase, {
     ...prices,
     createdAt: Date.now(),
   });

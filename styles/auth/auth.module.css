@@ -1,0 +1,28 @@
+.authWrapper{
+    background-image: linear-gradient(120deg, #212121 0%, #000000 100%);
+}
+.contentWrapper{
+    max-width: 550px;   
+    width: 100%;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.238);   
+    border-radius: 5px;     
+    padding: 30px;    
+    background-color: #fff;    
+}
+.authBtn{  
+    box-sizing: border-box !important;   
+    width: calc(100% - 10px) !important;     
+    margin-top: 30px !important;  
+    margin-bottom: 10px !important;         
+    transition: background-color,filter,opacity 150ms ease-in-out !important;    
+    background-color: #212121;  
+}
+.optionalLink{
+    text-decoration: none !important; 
+    transition: opacity 150ms ease-in-out !important;   
+    color: #50ADE5 !important;         
+}
+.optionalLink:hover{
+    opacity: 0.8;
+    text-decoration: underline !important;      
+}

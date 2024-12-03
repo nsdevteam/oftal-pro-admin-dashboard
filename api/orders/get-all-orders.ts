@@ -1,9 +1,8 @@
-import { getAllData } from 'burnbase/firestore';
 
-import { IOrder } from '../../interface';
+import { getAllData } from '../../utils/helpers';
 
 const ordersCollectionName = 'orders';
 
-const getAllOrders = getAllData<IOrder>(ordersCollectionName);
+const getAllOrders = getAllData(ordersCollectionName);
 
 export default getAllOrders;

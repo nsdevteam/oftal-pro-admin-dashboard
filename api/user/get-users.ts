@@ -1,11 +1,10 @@
-import { getPagination } from 'burnbase/firestore';
 
-import { IClient } from '../../interface';
-import { TGetUsers } from './user.protocol';
+
+import { getAllData } from '../../utils/helpers';
 import { userCollectionName } from './user.utils';
 
-const getUsers: TGetUsers = getPagination<IClient>(
-  userCollectionName
-) as TGetUsers;
+const getAllUsers:any= getAllData(userCollectionName);
 
-export default getUsers;
+export default getAllUsers;       
+
+    

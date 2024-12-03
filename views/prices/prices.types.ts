@@ -11,3 +11,4 @@ export interface PriceTableProps {
   data: ReadonlyArray<WithUid<IUserPrices>>;
   setSelectedDoc: (data: WithUid<IUserPrices>) => void;
 }
+   

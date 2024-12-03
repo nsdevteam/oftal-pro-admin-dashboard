@@ -13,6 +13,7 @@ const Header: FC<HeaderProps> = ({ setOpenMenu }) => (
     display="flex"
     alignItems="center"
     justifyContent="space-between"
+    className="dash-header"
   >
     <Box
       cursor="pointer"
@@ -26,7 +27,6 @@ const Header: FC<HeaderProps> = ({ setOpenMenu }) => (
       height={35}
       display="inline-flex"
       alignItems="center"
-      background={colors.foreground}
     >
       <LogoSVG width={200} height={30} />
     </Box>

@@ -9,17 +9,18 @@ const AccountPage: FC = () => (
       as="div"
       maxWidth="100%"
       height="90vh"
-      width="80vw"
+      width="80%"
       display="flex"
       flexDirection="column"
       justifyContent="flex-start"
       alignItems="flex-start"
       alignContent="flex-start"
       padding="1rem"
+      className='page-form account-page'
     >
-      <Typography padding="0.5rem">Dados do usuário</Typography>
-      <Box as="div" width="80%" padding="0.5rem" marginTop="2rem">
-        <Typography padding="1rem">Actualizar os seus dados</Typography>
+      <Typography className='page-title' padding="0.5rem">Dados do usuário</Typography>
+      <Box className='content' as="div" width="80%" padding="0.5rem" marginTop="2rem">
+        <Typography className='page-subtitle' padding="1rem">Actualizar os seus dados</Typography>
         <Box
           as="form"
           width="100%"
@@ -30,7 +31,7 @@ const AccountPage: FC = () => (
         >
           <Box
             as="div"
-            width="100vw"
+            width="100%"
             display="flex"
             alignItems="flex-start"
             justifyContent="flex-start"
@@ -42,8 +43,9 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
-              <Typography textAlign="left" padding="0.5rem">
+              <Typography className='label' textAlign="left" padding="0.5rem">
                 Primeiro nome
               </Typography>
               <Input
@@ -62,6 +64,7 @@ const AccountPage: FC = () => (
                 nFocus={{
                   borderColor: '#A6A6A6',
                 }}
+                className='form-group'
               />
             </Box>
             <Box
@@ -71,8 +74,9 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
-              <Typography textAlign="left" padding="0.5rem">
+              <Typography className='label' textAlign="left" padding="0.5rem">
                 Sobrenome
               </Typography>
               <Input
@@ -99,6 +103,7 @@ const AccountPage: FC = () => (
             display="flex"
             alignItems="flex-start"
             justifyContent="flex-start"
+            width="100%"
           >
             <Box
               as="div"
@@ -107,8 +112,9 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
-              <Typography textAlign="left" padding="0.5rem">
+              <Typography className='label' textAlign="left" padding="0.5rem">
                 Endereço de email
               </Typography>
               <Input
@@ -136,8 +142,9 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
-              <Typography textAlign="left" padding="0.5rem">
+              <Typography className='label' textAlign="left" padding="0.5rem">
                 Número de telefone
               </Typography>
               <Input
@@ -164,6 +171,7 @@ const AccountPage: FC = () => (
             display="flex"
             alignItems="flex-start"
             justifyContent="flex-start"
+            width="100%"
           >
             <Box
               as="div"
@@ -172,8 +180,9 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
-              <Typography textAlign="left" padding="0.5rem">
+              <Typography className='label' textAlign="left" padding="0.5rem">
                 Data de criação de conta
               </Typography>
               <Input
@@ -201,8 +210,9 @@ const AccountPage: FC = () => (
               flexDirection="column"
               justifyContent="flex-start"
               alignItems="flex-start"
+              className='form-group'
             >
-              <Typography textAlign="left" padding="0.5rem">
+              <Typography className='label' textAlign="left" padding="0.5rem">
                 Última data de login
               </Typography>
               <Input
@@ -211,7 +221,6 @@ const AccountPage: FC = () => (
                 outline="none"
                 borderRadius="M"
                 border="1px solid #E4E4E7"
-                marginLeft="0.5rem"
                 color="textInverted"
                 mr={['NONE', 'S']}
                 ml={['NONE', 'S']}

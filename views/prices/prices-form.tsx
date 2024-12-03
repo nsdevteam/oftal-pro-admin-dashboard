@@ -90,6 +90,7 @@ const PricesForm: FC<PriceFormProps> = ({ closeForm, doc }) => {
         alignItems="center"
         p={['1rem', '2rem']}
         justifyContent="center"
+        className='page-form prices-form'
       >
         <Box
           bg="white"

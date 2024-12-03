@@ -4,12 +4,13 @@ import { CSVLink } from 'react-csv';
 import { FiSearch, FiX } from 'react-icons/fi';
 import { RiFileExcel2Line } from 'react-icons/ri';
 
-import getAllOrders from '../../api/orders/get-all-orders';
 import { Box, Button, Input, Typography } from '../../elements';
 import { IOrder, orderStatusEnum } from '../../interface';
 import OrderForm from './order-form';
 import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
 import OrderTable from './orders-table';
+import { getAllData } from '../../utils/helpers';
+import { orderCollectionName } from '../../api/orders/orders.utis';
 
 const Orders: FC = () => {
   const [filter, setFilter] = useState('');
@@ -19,14 +20,25 @@ const Orders: FC = () => {
   const [selectDoc, setSelectedDoc] = useState<WithUid<IOrder> | null>(null);
 
   useEffect(() => {
-    getAllOrders({
-      conditions: [['status', '==', orderStatusEnum.Encomendado]],
-    })
-      .then(setOrders)
-      .finally(() => setLoading(false));
+    getCompletedOrders().catch((error)=>console.error("Failed to retrieve completed orders ::: ",error));    
   }, []);
 
-  const filterOrder = orders.filter(({ ref, type, createdAt }) => {
+  const getCompletedOrders = async ()=>{
+    const _data:any = await getAllData(orderCollectionName,[{field:'status', operator:'==', value:orderStatusEnum.Encomendado}])();
+    const sortOrders = (a:any,b:any)=>{
+      if(a?.createdAt > b?.createdAt){
+        return 1;
+      }else if(a?.createdAt < b?.createdAt){
+        return -1;
+      }else{
+        return 0;
+      }
+    }
+    setOrders(_data?.sort(sortOrders).reverse());        
+    setLoading(false);   
+  }
+   
+  const filterOrder = orders?.filter(({ ref, type, createdAt }) => {   
     const notValidText =
       filter && !ref.includes(filter) && !TYPE_LEGEND[type].includes(filter);
 
@@ -121,41 +133,7 @@ const Orders: FC = () => {
           alignItems="flex-start"
           justifyContent="space-between"
         >
-          <Box
-            flex="1"
-            width="100%"
-            display="flex"
-            mr={['0', 'S']}
-            borderRadius="M"
-            overflow="hidden"
-            alignItems="center"
-            color="textInverted"
-            border="1px solid #E4E4E7"
-            justifyContent="flex-start"
-          >
-            <Box cursor="pointer" padding="0.5rem" paddingRight="0">
-              <FiSearch size={24} />
-            </Box>
-            <Box display="flex" flexDirection="column" flex="1">
-              <Input
-                p="L"
-                flex="1"
-                // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus
-                width="100%"
-                type="search"
-                value={filter}
-                name="search"
-                mr={['0', 'S']}
-                ml={['0', 'S']}
-                borderRadius="M"
-                backgroundColor="transparent"
-                placeholder="Procurar por encomendas..."
-                onChange={(e) => setFilter(e.target.value)}
-              />
-            </Box>
-          </Box>
-          <Box display="flex" alignItems="center" gap="1rem">
+          <Box className='order-options' display="flex" alignItems="center" gap="1rem">
             <Input
               name="date"
               type="date"
@@ -166,7 +144,7 @@ const Orders: FC = () => {
               value={dateFilter}
               border="1px solid #E4E4E7"
               backgroundColor="transparent"
-              placeholder="Procurar por encomendas..."
+              className='date-input-filter'
               onChange={(e) => setDateFilter(e.target.value)}
             />
             {dateFilter && (
@@ -175,7 +153,7 @@ const Orders: FC = () => {
               </Button>
             )}
             <CSVLink filename="orders.csv" data={csvData}>
-              <Button disabled={loading}>
+              <Button className='option-btn export-btn' disabled={loading}>
                 <Typography as="span">Exportar</Typography>
                 <Typography as="span" ml="M">
                   <RiFileExcel2Line size={18} color="#FFF" />
@@ -184,11 +162,8 @@ const Orders: FC = () => {
             </CSVLink>
           </Box>
         </Box>
-        <OrderTable setSelectedDoc={setSelectedDoc} data={filterOrder} />
-      </Box>
-      <Box p="0.5rem" display="flex" justifyContent="space-between">
-        <Typography as="h4">Total de resultados: {orders.length}</Typography>
-      </Box>
+        <OrderTable customData={orders} setSelectedDoc={setSelectedDoc} data={filterOrder} />
+      </Box>  
       {selectDoc && (
         <OrderForm
           doc={selectDoc}

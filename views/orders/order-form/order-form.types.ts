@@ -6,7 +6,7 @@ import { IOrder } from '../../../interface';
 export interface OrderFormProps {
   closeForm: () => void;
   isEditable: boolean;
-  doc: WithUid<IOrder> | null;
+  doc: WithUid<IOrder> | null;   
 }
 
 export interface DropdownFieldProps
