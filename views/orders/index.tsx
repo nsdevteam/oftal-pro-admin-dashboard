@@ -11,6 +11,7 @@ import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
 import OrderTable from './orders-table';
 import { getAllData } from '../../utils/helpers';
 import { orderCollectionName } from '../../api/orders/orders.utis';
+import OrdersMobile from './orders-mobile';
 
 const Orders: FC = () => {
   const [filter, setFilter] = useState('');
@@ -162,11 +163,17 @@ const Orders: FC = () => {
             </CSVLink>
           </Box>
         </Box>
+        <div className='dis-dk'>
         <OrderTable customData={orders} setSelectedDoc={setSelectedDoc} data={filterOrder} />
+        </div>
+        <div className='dis-mb'>
+        <OrdersMobile customData={orders} setSelectedDoc={setSelectedDoc} data={filterOrder} />    
+        </div>
+        
       </Box>  
       {selectDoc && (
         <OrderForm
-          doc={selectDoc}
+          doc={selectDoc} 
           closeForm={() => setSelectedDoc(null)}
           isEditable={false}
         />

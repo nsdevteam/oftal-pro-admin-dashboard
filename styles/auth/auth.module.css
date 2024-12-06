@@ -1,5 +1,7 @@
 .authWrapper{
     background-image: linear-gradient(120deg, #212121 0%, #000000 100%);
+    padding-left: 30px;
+    padding-right: 30px;   
 }
 .contentWrapper{
     max-width: 550px;   
@@ -11,11 +13,11 @@
 }
 .authBtn{  
     box-sizing: border-box !important;   
-    width: calc(100% - 10px) !important;     
+    width: 100% !important;      
     margin-top: 30px !important;  
     margin-bottom: 10px !important;         
     transition: background-color,filter,opacity 150ms ease-in-out !important;    
-    background-color: #212121;  
+    background-color: #212121 !important;  
 }
 .optionalLink{
     text-decoration: none !important; 
@@ -25,4 +27,13 @@
 .optionalLink:hover{
     opacity: 0.8;
     text-decoration: underline !important;      
+}
+.authWrapper .input-wrapper{
+    width: 100%;
+}
+.authWrapper .passwordInputWrapper > div:first-child{     
+    width: 100%;      
+}
+.authWrapper .passwordInput{   
+    width: 100%;      
 }
