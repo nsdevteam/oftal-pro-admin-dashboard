@@ -127,7 +127,7 @@
 .dash-sidebar{    
   box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.076);  
   z-index: 500;
-  background-color: #212121;
+  background-color: #212121 !important;
 }
 .dash-sidebar .list{
 
