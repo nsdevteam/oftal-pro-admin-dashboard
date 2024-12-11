@@ -45,7 +45,7 @@ const Clients: FC = () => {
   return (
       <div className='view-wrapper clients-wrapper'>
          <div className='view-header clients-header'>
-          <Button className='add-item-btn' mt="L" disabled={loading} onClick={() => setOpen(true)}>
+          <Button className='add-item-btn action-btn' mt="L" disabled={loading} onClick={() => setOpen(true)}>
             <Typography as="span">Adicionar Cliente</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />

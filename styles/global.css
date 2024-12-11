@@ -358,6 +358,12 @@ display: none;
 .view-header .export-btn{
   background-color: #212121;   
 }  
+.view-header .action-btn{
+  background-color: #212121;  
+  height: auto;
+  width: auto;
+  padding: 8px 12px;
+}
 
 @media screen and (max-width: 1024px) {
   .order-options .option-btn{

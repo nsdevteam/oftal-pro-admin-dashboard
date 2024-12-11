@@ -41,7 +41,7 @@ const Admins: FC = () => {
           alignItems="flex-start"
           justifyContent="space-between"
         >   
-          <Button className='add-item-btn' mt="L" disabled={loading} onClick={() => setOpen(true)}>
+          <Button className='add-item-btn action-btn' mt="L" disabled={loading} onClick={() => setOpen(true)}>
             <Typography  as="span">Adicionar Administrador</Typography>
             <Typography as="span" ml="M">
               <FiPlus size={18} color="#FFF" />
