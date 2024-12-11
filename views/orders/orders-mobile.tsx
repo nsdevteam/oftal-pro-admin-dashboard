@@ -16,7 +16,7 @@ const OrderCards: React.FC<{ order: any; onClick: (id: string) => void }> = ({ o
       onClick={() => onClick(order.id)}
     >
       <CardContent>
-        <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
+        <Typography color='#316b8f' sx={{ mb: 1, fontWeight: 'bold' }}>
           Ref/Nome de Paciente: {order.ref}
         </Typography>
         <Stack spacing={1}>

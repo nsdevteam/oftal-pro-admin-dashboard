@@ -7,6 +7,7 @@ import { Box, Button, Input, Typography } from '../../elements';
 import { IUserPrices } from '../../interface';
 import PricesForm from './prices-form';
 import PricesTable from './prices-table';
+import PricesCards from './prices-cards';
 
 const Prices: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -52,6 +53,7 @@ const Prices: FC = () => {
             </Typography>
           </Button>
         </Box>
+        <div className='dis-dk'>
         <PricesTable
           setSelectedDoc={handleItemSelect}
           customData={prices}   
@@ -61,6 +63,18 @@ const Prices: FC = () => {
             return true;
           })}
         />
+        </div>
+        <div className='dis-mb'>
+        <PricesCards
+            setSelectedDoc={handleItemSelect}
+            customData={prices}   
+            data={prices.filter(({ name }) => {
+              if (filterPrices && !name.includes(filterPrices)) return false;
+  
+              return true;
+            })}
+        />
+        </div>   
       </Box>   
       {(isOpen || selectedDoc) && (
         <PricesForm

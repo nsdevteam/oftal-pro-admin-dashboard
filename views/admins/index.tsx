@@ -6,6 +6,7 @@ import { Box, Button, Input, Typography } from '../../elements';
 import { IAdmin } from '../../interface';
 import AdminForm from './admin-form';
 import AdminTable from './admin-table';
+import AdminCards from './admin-cards';
 
 const Admins: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -47,6 +48,7 @@ const Admins: FC = () => {
             </Typography>
           </Button>
         </Box>
+        <div className='dis-dk'>
         <AdminTable
           data={admins.filter(({ fullName, email }) => {
             if (
@@ -61,6 +63,24 @@ const Admins: FC = () => {
           })} 
           setSelectedDoc={handleSelectItem}   
         />
+        </div>
+        <div className='dis-mb'>
+          <AdminCards 
+             data={admins.filter(({ fullName, email }) => {
+              if (
+                filterAdmins &&
+                !fullName.includes(filterAdmins) &&
+                !email.includes(filterAdmins)
+              ) {
+                return false;
+              }
+  
+              return true;
+            })} 
+            setSelectedDoc={handleSelectItem}
+          />
+        </div>
+ 
       </Box>   
       {isOpen && <AdminForm doc={selectDoc} closeForm={() => setOpen(false)} />}
     </Box>   
