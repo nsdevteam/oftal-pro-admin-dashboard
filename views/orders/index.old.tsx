@@ -6,13 +6,13 @@ import { RiFileExcel2Line } from 'react-icons/ri';
 
 import { Box, Button, Input, Typography } from '../../elements';
 import { IOrder, orderStatusEnum } from '../../interface';
-import OrderForm from './order-form';   
+import OrderForm from './order-form';
+import { COLOR_LEGEND, TYPE_LEGEND } from './orders.data';
 import OrderTable from './orders-table';
 import { getAllData } from '../../utils/helpers';
 import { orderCollectionName } from '../../api/orders/orders.utis';
 import OrdersMobile from './orders-mobile';
 import FilterInput from '../../elements/filter-input';
-import { COLOR_LEGEND, STATUS_LEGEND, TYPE_LEGEND } from './order-form/order-form.data';
 
 const Orders: FC = () => {
   const [filter, setFilter] = useState('');
@@ -38,10 +38,8 @@ const Orders: FC = () => {
         return 0;
       }
     }
-    const _orders = _data?.sort(sortOrders).reverse();
-    setOrders(_orders);  
-    setFilterOrders(_orders);        
-    setLoading(false);      
+    setOrders(_data?.sort(sortOrders).reverse());        
+    setLoading(false);   
   }
    
 
@@ -129,37 +127,28 @@ const Orders: FC = () => {
   );
 
   // Use useCallback to prevent re-creating the function on every render
-  const handleSearchFilter = (result:any)=>{
-    if(dateFilter){
-      setDateFilter(undefined);
-    }   
+  const handleFilter = useCallback((result: any[]) => {
     setFilterOrders(result);
-  }  
-
-  const handleDateFilterResetCallback = useCallback(()=>{
-    setFilterOrders(orders);   
-
-  },[])
-
-  const mapKeysByData = (item:WithUid<IOrder>)=>{
-    //@ts-ignore
-    console.log("Status ::: ",item,STATUS_LEGEND[item.status])
-      return {
-        ...item,
-        ref: `${new Date(item?.createdAt || '')
-          .toISOString()
-          .split('T')[0]
-          .replace(/-/g, '')}-${item.clientId}-${item.ref || item.createdAt}`,
-        type: TYPE_LEGEND[item.type] || '',
-        color: COLOR_LEGEND[item.color] || '',
-        refractiveIndex: item.refractiveIndex,  
-        status: STATUS_LEGEND[item.status]   
-      }
-  }   
+  }, []);
 
   return (
-    <div className='view-wrapper orders-wrapper'>
-      <div className='view-header orders-header'>
+    <Box
+      flex="1"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+    >
+      <Box display="flex" gap="2rem" flexDirection="column">
+        <Box
+          gap="1rem"
+          width="100%"
+          display="flex"
+          padding="0.5rem"
+          flexDirection="column"
+          alignItems="flex-start"
+          justifyContent="space-between"
+        >
+          <Box className='order-options' display="flex" alignItems="center" gap="1rem">
             <Input
               name="date"
               type="date"
@@ -174,7 +163,7 @@ const Orders: FC = () => {
               onChange={(e) => filterDateChange(e.target.value)}   
             />
             {dateFilter && (
-              <Button bg="#FC6363" className='date-input-filter-btn' onClick={()=>handleDateFilterResetCallback()}>     
+              <Button bg="#FC6363" onClick={() => setDateFilter(undefined)}>
                 <FiX />
               </Button>
             )}
@@ -187,17 +176,17 @@ const Orders: FC = () => {
                 </Typography>
               </Button>
             </CSVLink>
-      </div>
-      <div className='view-content orders-content'>
-      <div className='dis-dk'>
+          </Box>
+        </Box>
+  {/*       <div className='dis-dk'>
         <OrderTable customData={orders} setSelectedDoc={setSelectedDoc} data={filterOrder} />
-        </div> 
+        </div> */}
         <div className='dis-mb'>
-        <FilterInput mapKeysFn={mapKeysByData} data={orders} onFilter={handleSearchFilter}  />              
+        <FilterInput data={filterOrder} onFilter={handleFilter}  />              
         <OrdersMobile customData={orders} setSelectedDoc={setSelectedDoc} data={filterOrder} />    
-        </div>  
-      </div>
-      <div className='view-modal-silent'>
+        </div>   
+        
+      </Box>  
       {selectDoc && (   
         <OrderForm
           doc={selectDoc} 
@@ -205,8 +194,7 @@ const Orders: FC = () => {
           isEditable={false}
         />
       )}
-      </div>
-    </div>
+    </Box>
   );
 };
 

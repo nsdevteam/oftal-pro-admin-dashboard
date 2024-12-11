@@ -63,8 +63,7 @@ const ResetPasswordPage: FC = () => {
           <Typography className='label' fontSize={['0.5rem', '1rem']} textAlign="left" py="0.5rem">
             Endereço de email
           </Typography>
-          <Input
-            width={['18rem', '30rem']}
+          <Input  
             p={['0.5rem', 'L']}
             fontSize={['0.5rem', '1rem']}
             type="email"

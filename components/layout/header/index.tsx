@@ -19,8 +19,9 @@ const Header: FC<HeaderProps> = ({ setOpenMenu }) => (
       cursor="pointer"
       display={['block', 'block', 'none']}
       onClick={() => setOpenMenu((v) => !v)}
+      className='menu-trigger-wrapper'
     >
-      <MenuSVG maxWidth="1.5rem" maxHeight="1.5rem" width="100%%" />
+      <MenuSVG className='menu-trigger-icon' maxWidth="1.5rem" maxHeight="1.5rem" width="100%%" />
     </Box>
     <Box
       py="2rem"

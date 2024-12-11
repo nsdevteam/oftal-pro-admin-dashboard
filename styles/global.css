@@ -335,6 +335,29 @@ transition: opacity 150ms ease-in-out;
   background-color: #212121;  
   border-radius: 4px;
 }
+.dis-dk{
+display: block;
+}
+.dis-mb{
+display: none;
+}
+.view-header{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.view-header input{
+  margin-right: 10px;
+}
+.view-header button{
+  height: auto;
+  width: auto;
+  padding: 8px 12px;
+  border-radius: 2px;
+}
+.view-header .export-btn{
+  background-color: #212121;   
+}  
 
 @media screen and (max-width: 1024px) {
   .order-options .option-btn{
@@ -347,7 +370,7 @@ transition: opacity 150ms ease-in-out;
     height: 12px;
     width: 12px;
     margin-left: 10px;
-  }
+  }   
   .page-title{
     font-size: 24px;
   }
@@ -356,6 +379,18 @@ transition: opacity 150ms ease-in-out;
   }
   .account-page .content{
     width: 100%;   
+  }
+  .menu-trigger-wrapper{
+  
+  }
+  .menu-trigger-icon{
+    filter: invert();
+  }
+  .dis-dk{
+    display: none;
+    }
+  .dis-mb{
+    display: block;
   }
 }
 
