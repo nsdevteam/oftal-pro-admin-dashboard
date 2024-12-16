@@ -202,38 +202,19 @@ async function loginWithEmailAndPassword(email: string, password: string): Promi
     throw new Error("Failed to login.");
   }
 }
-async function downloadFirebaseFile(storageUrl: string, filename?: string): Promise<void> {
-  try {
-    // Fetch the file from the storage URL
-    const response = await fetch(storageUrl);
-
-    // Check if the response is OK
-    if (!response.ok) {
-      throw new Error(`Failed to fetch file: ${response.statusText}`);
-    }
-
-    // Convert the response to a Blob
-    const blob = await response.blob();
-
-    // Create a temporary anchor element
-    const anchor = document.createElement('a');
-    const objectUrl = URL.createObjectURL(blob);
-
-    // Set the download attributes
-    anchor.href = objectUrl;
-    anchor.download = filename || 'downloaded-file';
-
-    // Append the anchor, trigger the click, and clean up
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-
-    // Release the object URL
-    URL.revokeObjectURL(objectUrl);
-  } catch (error) {
-    console.error('Error downloading file:', error);
-  }
-}
+async function downloadFirebaseFile(
+  storageUrl: string,
+  filename?: string
+): Promise<void> {
+  const storage = getStorage();
+    getDownloadURL(ref(storage, storageUrl))
+    .then((url) => {
+      window.open(url,'_blank');   
+    })
+    .catch((error) => {
+      console.error("Failed to download file ::: ",error);        
+    });
+}    
 export const createUser = async (
   email: string,
   password: string,
