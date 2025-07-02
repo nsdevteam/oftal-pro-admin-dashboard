@@ -58,8 +58,8 @@ const ClientForm: FC<ClientFormProps> = ({ closeForm, doc, prices }) => {
         });
         return;
       }
-
-      await updateClient(doc.uid, { fullName, clientId, type, priceId });
+      //@ts-ignore
+      await updateClient(doc.id, { fullName, clientId, type, priceId });
     } finally {
       closeForm();
     }
